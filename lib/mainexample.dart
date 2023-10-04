@@ -162,7 +162,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                   androidUsesFineLocation: false);
             }
             return Future.delayed(
-                Duration(milliseconds: 500)); // show refresh icon breifly
+                const Duration(milliseconds: 500)); // show refresh icon breifly
           },
           child: SingleChildScrollView(
             child: Column(
@@ -189,7 +189,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                           .push(MaterialPageRoute(
                                               builder: (context) =>
                                                   DeviceScreen(device: d),
-                                              settings: RouteSettings(
+                                              settings: const RouteSettings(
                                                   name: '/deviceScreen'))),
                                     );
                                   }
