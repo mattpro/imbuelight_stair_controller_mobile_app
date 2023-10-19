@@ -63,7 +63,7 @@ class BluetoothAdapterStateObserver extends NavigatorObserver {
 }
 
 class FlutterBlueApp extends StatelessWidget {
-  const FlutterBlueApp({Key? key}) : super(key: key);
+  const FlutterBlueApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class FlutterBlueApp extends StatelessWidget {
 }
 
 class BluetoothOffScreen extends StatelessWidget {
-  const BluetoothOffScreen({Key? key, this.adapterState}) : super(key: key);
+  const BluetoothOffScreen({super.key, this.adapterState});
 
   final BluetoothAdapterState? adapterState;
 
@@ -138,7 +138,7 @@ class BluetoothOffScreen extends StatelessWidget {
 }
 
 class FindDevicesScreen extends StatefulWidget {
-  const FindDevicesScreen({Key? key}) : super(key: key);
+  const FindDevicesScreen({super.key});
 
   @override
   State<FindDevicesScreen> createState() => _FindDevicesScreenState();
@@ -209,7 +209,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                                         .value = true;
                                                     d
                                                         .connect(
-                                                            timeout: Duration(
+                                                            timeout: const Duration(
                                                                 seconds: 35))
                                                         .catchError((e) {
                                                       final snackBar =
@@ -233,7 +233,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                                     return DeviceScreen(
                                                         device: d);
                                                   },
-                                                  settings: RouteSettings(
+                                                  settings: const RouteSettings(
                                                       name: '/deviceScreen')));
                                         });
                                   }
@@ -265,7 +265,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                           .value = true;
                                       r.device
                                           .connect(
-                                              timeout: Duration(seconds: 35))
+                                              timeout: const Duration(seconds: 35))
                                           .catchError((e) {
                                         final snackBar = snackBarFail(
                                             prettyException(
@@ -284,7 +284,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                       return DeviceScreen(device: r.device);
                                     },
                                     settings:
-                                        RouteSettings(name: '/deviceScreen'))),
+                                        const RouteSettings(name: '/deviceScreen'))),
                           ),
                         )
                         .toList(),
@@ -300,7 +300,6 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
           builder: (c, snapshot) {
             if (snapshot.data ?? false) {
               return FloatingActionButton(
-                child: const Icon(Icons.stop),
                 onPressed: () async {
                   try {
                     FlutterBluePlus.stopScan();
@@ -312,6 +311,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                   }
                 },
                 backgroundColor: Colors.red,
+                child: const Icon(Icons.stop),
               );
             } else {
               return FloatingActionButton(
@@ -340,7 +340,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
 class DeviceScreen extends StatelessWidget {
   final BluetoothDevice device;
 
-  const DeviceScreen({Key? key, required this.device}) : super(key: key);
+  const DeviceScreen({super.key, required this.device});
 
   List<int> _getRandomBytes() {
     final math = Random();
@@ -505,7 +505,7 @@ class DeviceScreen extends StatelessWidget {
                       isConnectingOrDisconnecting[device.remoteId]!.value =
                           true;
                       try {
-                        await device.connect(timeout: Duration(seconds: 35));
+                        await device.connect(timeout: const Duration(seconds: 35));
                         final snackBar = snackBarGood("Connect: Success");
                         snackBarKeyC.currentState?.removeCurrentSnackBar();
                         snackBarKeyC.currentState?.showSnackBar(snackBar);
@@ -537,8 +537,8 @@ class DeviceScreen extends StatelessWidget {
                       if (isConnectingOrDisconnecting[device.remoteId]!.value ==
                           true) {
                         // Show spinner when connecting or disconnecting
-                        return Padding(
-                          padding: const EdgeInsets.all(14.0),
+                        return const Padding(
+                          padding: EdgeInsets.all(14.0),
                           child: AspectRatio(
                             aspectRatio: 1.0,
                             child: CircularProgressIndicator(
@@ -629,12 +629,12 @@ class DeviceScreen extends StatelessWidget {
                             ),
                             const IconButton(
                               icon: SizedBox(
+                                width: 18.0,
+                                height: 18.0,
                                 child: CircularProgressIndicator(
                                   valueColor:
                                       AlwaysStoppedAnimation(Colors.grey),
                                 ),
-                                width: 18.0,
-                                height: 18.0,
                               ),
                               onPressed: null,
                             )
@@ -686,7 +686,7 @@ class DeviceScreen extends StatelessWidget {
 
   Stream<int> rssiStream(
       {Duration frequency = const Duration(seconds: 5),
-      int? maxItems = null}) async* {
+      int? maxItems}) async* {
     var isConnected = true;
     final subscription = device.connectionState.listen((v) {
       isConnected = v == BluetoothConnectionState.connected;

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:imbuelight_stair_controller_mobile_app/pages/home_page.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:get/get.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
