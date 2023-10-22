@@ -17,7 +17,7 @@ https://developer.android.com/about/versions/12/features/bluetooth-permissions -
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
         android:maxSdkVersion="28" />
     <application
-        android:label="imbuelight_stair_controller_mobile_app"
+        android:label="IL Stair Controller"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
