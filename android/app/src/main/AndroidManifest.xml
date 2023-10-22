@@ -19,7 +19,7 @@ https://developer.android.com/about/versions/12/features/bluetooth-permissions -
     <application
         android:label="imbuelight_stair_controller_mobile_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

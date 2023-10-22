@@ -12,7 +12,7 @@ class TimerController extends GetxController {
   }
 
   updateValue() {
-    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(milliseconds: 100), (Timer timer) {
       Obx(() => bc.refreshValue());
       subscription.value = bc.sub.toString();
     });
