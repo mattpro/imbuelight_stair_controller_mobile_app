@@ -88,7 +88,7 @@ class BluetoothController extends GetxController {
         // }
         if (c.properties.read) {
           List<int> value = await c.read();
-          if (value.isNotEmpty) {
+          if (String.fromCharCodes(value)[0] == "I") {
             // Iterable<int> name = value;
             nameOfDevice = RxString(String.fromCharCodes(value));
           }
