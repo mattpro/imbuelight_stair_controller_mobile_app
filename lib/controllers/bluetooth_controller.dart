@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
+import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/pages/device_page.dart';
+import 'package:imbuelight_stair_controller_mobile_app/widges/font_style.dart';
+import 'package:imbuelight_stair_controller_mobile_app/widges/listDeviceWidget.dart';
 
 class BluetoothController extends GetxController {
   RxString nameOfDevice = ''.obs;
@@ -23,60 +26,11 @@ class BluetoothController extends GetxController {
     return imbue;
   }
 
-  listDeviceWidget() {
-    return StreamBuilder(
-        stream: FlutterBluePlus.scanResults,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            List<ScanResult> imbue = refreshDevices(snapshot);
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: imbue.length,
-                itemBuilder: (context, index) {
-                  final data = imbue[index];
-                  return Card(
-                    elevation: 2,
-                    child: ListTile(
-                        title: Text(data.device.platformName),
-                        subtitle: Text(data.device.remoteId.str),
-                        trailing: Text(data.rssi.toString()),
-                        onTap: () async => {
-                              await connectionWithDevice(
-                                  data.device, data.device.connectionState),
-                            },
-                        tileColor: connectionState(
-                                data.device, data.device.connectionState)
-                            ? Colors.cyan
-                            : Colors.yellow),
-                  );
-                });
-          } else {
-            return const Text("No devices found");
-          }
-        });
-  }
-
   connectionState(device, state) {
     bool isConnect =
         device.connectionState == BluetoothConnectionState.connected;
     return isConnect;
   }
-
-  // subsciptionWidget() {
-  //   final BluetoothController c = Get.put(BluetoothController());
-  //   return Obx(() => StreamBuilder(
-  //       stream: c.sub,
-  //       builder: (context, snapshot) {
-  //         if (snapshot.hasData) {
-  //           return ListTile(
-  //             title: Text(c.name),
-  //             subtitle: Text(snapshot.data.toString()),
-  //           );
-  //         } else {
-  //           return const Text("No devices found");
-  //         }
-  //       }));
-  // }
 
   readDeviceName(device) async {
     List<BluetoothService> services = await device.discoverServices();
