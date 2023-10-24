@@ -5,6 +5,7 @@ import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_con
 import 'package:imbuelight_stair_controller_mobile_app/widges/listDeviceWidget.dart';
 
 class DevicesList extends StatelessWidget {
+  final BluetoothController? controller;
   const DevicesList({super.key, this.controller});
 
   @override
@@ -12,6 +13,4 @@ class DevicesList extends StatelessWidget {
     FlutterBluePlus.startScan(timeout: const Duration(seconds: 5));
     return listDeviceWidget();
   }
-
-  final BluetoothController? controller;
 }

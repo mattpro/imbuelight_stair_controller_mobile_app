@@ -16,10 +16,20 @@ class BluetoothController extends GetxController {
     listDeviceWidget();
   }
 
-  refreshDevices(AsyncSnapshot<List<ScanResult>> snapshot) {
+  refreshSensors(AsyncSnapshot<List<ScanResult>> snapshot) {
     List<ScanResult> imbue = snapshot.data!
         .where((i) => i.device.platformName.isNotEmpty
-            ? i.device.platformName.substring(0, 5) == "Imbue"
+            ? i.device.platformName.substring(0, 16) == "Imbue Light Move"
+            : false)
+        .toList();
+
+    return imbue;
+  }
+
+  refreshControllers(AsyncSnapshot<List<ScanResult>> snapshot) {
+    List<ScanResult> imbue = snapshot.data!
+        .where((i) => i.device.platformName.isNotEmpty
+            ? i.device.platformName.substring(0, 17) == "Imbue Light Stair"
             : false)
         .toList();
 
@@ -37,9 +47,9 @@ class BluetoothController extends GetxController {
     for (var service in services) {
       var characteristics = service.characteristics;
       for (BluetoothCharacteristic c in characteristics) {
-        // if (c.isNotifying) {
-        //   await c.setNotifyValue(true);
-        // }
+        if (c.isNotifying) {
+          await c.setNotifyValue(true);
+        }
         if (c.properties.read) {
           List<int> value = await c.read();
           if (String.fromCharCodes(value)[0] == "I") {
@@ -56,9 +66,9 @@ class BluetoothController extends GetxController {
     for (var service in services) {
       var characteristics = service.characteristics;
       for (BluetoothCharacteristic c in characteristics) {
-        // if (c.isNotifying) {
-        //   await c.setNotifyValue(true);
-        // }
+        if (c.isNotifying) {
+          await c.setNotifyValue(true);
+        }
         if (c.properties.notify) {
           await c.setNotifyValue(true);
           final subscription = c.onValueReceived.listen((value) {
@@ -82,14 +92,11 @@ class BluetoothController extends GetxController {
     nameOfDevice.refresh();
   }
 
-  BluetoothDevice? deviceItem;
-  // var sub = await readDeviceValue(device).obs;
-  // var name = await readDeviceName(device).obs
   connectionWithDevice(BluetoothDevice device, state) async {
     await device.connect();
     await readDeviceValue(device);
     await readDeviceName(device);
-    Get.to(() => const DevicePage());
+    Get.to(() => const SensorPage());
     // return [sub, name];
   }
 }
