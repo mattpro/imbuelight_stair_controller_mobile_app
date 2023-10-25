@@ -16,7 +16,7 @@ class BluetoothController extends GetxController {
     listDeviceWidget();
   }
 
-  refreshSensors(AsyncSnapshot<List<ScanResult>> snapshot) {
+  validationSensors(AsyncSnapshot<List<ScanResult>> snapshot) {
     List<ScanResult> imbue = snapshot.data!
         .where((i) => i.device.platformName.isNotEmpty
             ? i.device.platformName.substring(0, 16) == "Imbue Light Move"
@@ -26,7 +26,7 @@ class BluetoothController extends GetxController {
     return imbue;
   }
 
-  refreshControllers(AsyncSnapshot<List<ScanResult>> snapshot) {
+  validationControllers(AsyncSnapshot<List<ScanResult>> snapshot) {
     List<ScanResult> imbue = snapshot.data!
         .where((i) => i.device.platformName.isNotEmpty
             ? i.device.platformName.substring(0, 17) == "Imbue Light Stair"

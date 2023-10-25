@@ -11,3 +11,5 @@ enum AppColor {
   final int value;
   const AppColor(this.value);
 }
+
+enum TypeOfDevice { sensor, controller }
