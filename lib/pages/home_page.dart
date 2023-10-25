@@ -16,31 +16,34 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             backgroundColor: Color(AppColor.background.value),
             body: SafeArea(
-              child: Column(children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Text(
-                    'Szukaj urządzenia',
-                    style: fontStyle(Weight.bold, 25, Colors.white),
-                  ),
+              child: RefreshIndicator(
+                onRefresh: () => _onFresh(controller),
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50),
+                      child: Text(
+                        'Szukaj urządzenia',
+                        style: fontStyle(Weight.bold, 27, Colors.white, true),
+                      ),
+                    ),
+                    // Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    //   ElevatedButton(
+                    //       onPressed: () => {
+                    //             controller.scanDevices(),
+                    //           },
+                    //       child: Icon(Icons.refresh)),
+                    // ]),
+                    const DevicesList(),
+                  ]),
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  ElevatedButton(
-                      onPressed: () => {
-                            controller.scanDevices(),
-                          },
-                      child: Icon(Icons.refresh)),
-                ]),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const DevicesList(),
-                    ],
-                  ),
-                ),
-              ]),
+              ),
             ),
           );
         });
   }
+}
+
+Future<void> _onFresh(BluetoothController controller) {
+  return controller.scanDevices();
 }

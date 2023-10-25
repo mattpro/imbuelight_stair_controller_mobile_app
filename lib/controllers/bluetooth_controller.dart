@@ -9,11 +9,11 @@ import 'package:imbuelight_stair_controller_mobile_app/widges/listDeviceWidget.d
 class BluetoothController extends GetxController {
   RxString nameOfDevice = ''.obs;
   RxString sub = ''.obs;
-  Future scanDevices() async {
+  Future<void> scanDevices() async {
     if (FlutterBluePlus.isScanningNow == false) {
       await FlutterBluePlus.startScan(timeout: const Duration(seconds: 5));
     }
-    listDeviceWidget();
+    // listDeviceWidget(200);
   }
 
   validationSensors(AsyncSnapshot<List<ScanResult>> snapshot) {

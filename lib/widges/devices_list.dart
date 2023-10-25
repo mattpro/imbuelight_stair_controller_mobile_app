@@ -10,7 +10,8 @@ class DevicesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     FlutterBluePlus.startScan(timeout: const Duration(seconds: 5));
-    return listDeviceWidget();
+    return listDeviceWidget(height);
   }
 }
