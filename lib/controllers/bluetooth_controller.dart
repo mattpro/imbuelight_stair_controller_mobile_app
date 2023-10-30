@@ -11,7 +11,7 @@ class BluetoothController extends GetxController {
   RxString sub = ''.obs;
   Future<void> scanDevices() async {
     if (FlutterBluePlus.isScanningNow == false) {
-      await FlutterBluePlus.startScan(timeout: const Duration(seconds: 5));
+      await FlutterBluePlus.startScan(timeout: const Duration(seconds: 8));
     }
     // listDeviceWidget(200);
   }

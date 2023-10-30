@@ -64,13 +64,15 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
                   shrinkWrap: true,
                   itemCount: imbue.length,
                   itemBuilder: (context, index) {
+                    imbue.sort((a, b) => a.rssi.compareTo(b.rssi));
                     final data = imbue[index];
                     return Card(
                       elevation: 4,
                       child: ListTile(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          title: Text(data.device.platformName,
+                          title: Text(
+                              data.device.platformName.substring(0, 17).trim(),
                               style: fontStyle(
                                   Weight.bold, 15, Colors.black, false)),
                           subtitle: Text(
@@ -81,7 +83,9 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
                                   .trim(),
                               style: fontStyle(
                                   Weight.bold, 11, Colors.black, false)),
-                          trailing: Text(data.rssi.toString()),
+                          trailing: bluetoothImage(data),
+
+                          // Text(data.rssi.toString()),
                           onTap: () async => {
                                 await bc.connectionWithDevice(
                                     data.device, data.device.connectionState),
@@ -99,6 +103,24 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
         ]),
       ),
     ),
+  );
+}
+
+Image bluetoothImage(data) {
+  int range = data.rssi;
+  final String image;
+  if (range > -50) {
+    image = 'assets/bluetooth_1.png';
+  } else if (range <= -50 && range > -70) {
+    image = 'assets/bluetooth_2.png';
+  } else if (range <= -70 && range > -90) {
+    image = 'assets/bluetooth_3.png';
+  } else {
+    image = 'assets/bluetooth_4.png';
+  }
+  return Image(
+    image: AssetImage(image),
+    height: 30,
   );
 }
 
