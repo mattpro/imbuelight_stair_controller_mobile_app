@@ -17,10 +17,14 @@ Widget listDeviceWidget(double height) {
           return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                deviceTitle(TypeOfDevice.sensor),
+                const SizedBox(height: 15),
                 imbueList(imbueSensors, bc, TypeOfDevice.sensor, height),
                 const SizedBox(
                   height: 40,
                 ),
+                deviceTitle(TypeOfDevice.controller),
+                const SizedBox(height: 15),
                 imbueList(
                     imbueControllers, bc, TypeOfDevice.controller, height),
                 const SizedBox(
@@ -39,31 +43,22 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(123, 0, 255, 255),
+        color: Color.fromARGB(45, 0, 255, 255),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(123, 0, 255, 255),
+            color: Color.fromARGB(45, 0, 255, 255),
             blurRadius: 4,
             offset: Offset(4, 4), // Shadow position
           )
         ],
       ),
-      constraints: BoxConstraints(maxHeight: height * 0.40),
+      constraints:
+          BoxConstraints(maxHeight: height * 0.40, minWidth: double.infinity),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: Column(children: [
-          const SizedBox(height: 15),
-          Row(children: [
-            const SizedBox(width: 20),
-            Text(
-              typeofDevice == TypeOfDevice.sensor ? 'Czujniki' : 'Kontrolery',
-              style: fontStyle(Weight.bold, 25, Colors.white, true),
-            ),
-          ]),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 35),
           imbue.length > 0
               ? ListView.builder(
                   shrinkWrap: true,
@@ -78,6 +73,14 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
                           title: Text(data.device.platformName,
                               style: fontStyle(
                                   Weight.bold, 15, Colors.black, false)),
+                          subtitle: Text(
+                              data.device.platformName
+                                  .substring(
+                                    17,
+                                  )
+                                  .trim(),
+                              style: fontStyle(
+                                  Weight.bold, 11, Colors.black, false)),
                           trailing: Text(data.rssi.toString()),
                           onTap: () async => {
                                 await bc.connectionWithDevice(
@@ -97,4 +100,14 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
       ),
     ),
   );
+}
+
+Row deviceTitle(TypeOfDevice typeofDevice) {
+  return Row(children: [
+    const SizedBox(width: 20),
+    Text(
+      typeofDevice == TypeOfDevice.sensor ? 'Czujniki' : 'Kontrolery',
+      style: fontStyle(Weight.bold, 25, Colors.white, true),
+    ),
+  ]);
 }
