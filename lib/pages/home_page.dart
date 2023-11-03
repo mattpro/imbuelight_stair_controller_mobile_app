@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_controller.dart';
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/widges/devices_list.dart';
-import 'package:imbuelight_stair_controller_mobile_app/widges/font_style.dart';
+import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -27,13 +27,6 @@ class HomePage extends StatelessWidget {
                         style: fontStyle(Weight.bold, 27, Colors.white, true),
                       ),
                     ),
-                    // Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    //   ElevatedButton(
-                    //       onPressed: () => {
-                    //             controller.scanDevices(),
-                    //           },
-                    //       child: Icon(Icons.refresh)),
-                    // ]),
                     const DevicesList(),
                   ]),
                 ),
