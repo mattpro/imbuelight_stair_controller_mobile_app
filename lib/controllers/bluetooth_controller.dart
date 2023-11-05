@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:imbuelight_stair_controller_mobile_app/pages/sensor_page.dart';
 
 class BluetoothController extends GetxController {
+  AsciiCodec ascii = AsciiCodec();
   RxString nameOfDevice = ''.obs;
   RxString sub = ''.obs;
+  Rx<double> distanceValue = 0.0.obs;
+  late BluetoothCharacteristic _characteristicToWrite;
+  late BluetoothDevice currentDevice;
+
   Future<void> scanDevices() async {
     if (FlutterBluePlus.isScanningNow == false) {
       await FlutterBluePlus.startScan(timeout: const Duration(seconds: 8));
@@ -54,6 +61,9 @@ class BluetoothController extends GetxController {
             nameOfDevice = RxString(String.fromCharCodes(value));
           }
         }
+        if (c.properties.write) {
+          _characteristicToWrite = c;
+        }
       }
     }
   }
@@ -70,8 +80,9 @@ class BluetoothController extends GetxController {
           await c.setNotifyValue(true);
           final subscription = c.onValueReceived.listen((value) {
             const Duration(milliseconds: 1000);
-            String.fromCharCodes(value);
             sub = RxString(String.fromCharCodes(value));
+            distanceValue = RxDouble(
+                double.parse(String.fromCharCodes(value.sublist(6, 9)).trim()));
           });
           device.connectionState.listen((BluetoothConnectionState state) {
             if (state == BluetoothConnectionState.disconnected) {
@@ -87,13 +98,34 @@ class BluetoothController extends GetxController {
   refreshValue() {
     sub.refresh();
     nameOfDevice.refresh();
+    // distanceValue.refresh();
   }
 
   connectionWithDevice(BluetoothDevice device, state) async {
     await device.connect();
     await readDeviceValue(device);
     await readDeviceName(device);
-    Get.to(() => const SensorPage());
+    currentDevice = device;
+    Get.to(() => SensorPage());
     // return [sub, name];
+  }
+
+  changedDistance(double value) async {
+    var dataToSend = ascii.encode(value < 100.00
+        ? 'd0' + value.round().toString()
+        : 'd' + value.round().toString());
+    // List<BluetoothService> services = await currentDevice.discoverServices();
+    // for (var service in services) {
+    //   var characteristics = service.characteristics;
+    //   for (BluetoothCharacteristic c in characteristics) {
+    //     if (c.isNotifying) {
+    //       await c.setNotifyValue(true);
+    //     }
+    //     if (c.properties.write) {
+    //       await c.write(dataToSend);
+    //     }
+    //   }
+    // }
+    await _characteristicToWrite.write(dataToSend);
   }
 }

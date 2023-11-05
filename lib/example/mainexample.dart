@@ -209,8 +209,10 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                                         .value = true;
                                                     d
                                                         .connect(
-                                                            timeout: const Duration(
-                                                                seconds: 35))
+                                                            timeout:
+                                                                const Duration(
+                                                                    seconds:
+                                                                        35))
                                                         .catchError((e) {
                                                       final snackBar =
                                                           snackBarFail(
@@ -265,7 +267,8 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                           .value = true;
                                       r.device
                                           .connect(
-                                              timeout: const Duration(seconds: 35))
+                                              timeout:
+                                                  const Duration(seconds: 35))
                                           .catchError((e) {
                                         final snackBar = snackBarFail(
                                             prettyException(
@@ -283,8 +286,8 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                       });
                                       return DeviceScreen(device: r.device);
                                     },
-                                    settings:
-                                        const RouteSettings(name: '/deviceScreen'))),
+                                    settings: const RouteSettings(
+                                        name: '/deviceScreen'))),
                           ),
                         )
                         .toList(),
@@ -505,7 +508,8 @@ class DeviceScreen extends StatelessWidget {
                       isConnectingOrDisconnecting[device.remoteId]!.value =
                           true;
                       try {
-                        await device.connect(timeout: const Duration(seconds: 35));
+                        await device.connect(
+                            timeout: const Duration(seconds: 35));
                         final snackBar = snackBarGood("Connect: Success");
                         snackBarKeyC.currentState?.removeCurrentSnackBar();
                         snackBarKeyC.currentState?.showSnackBar(snackBar);
@@ -685,8 +689,7 @@ class DeviceScreen extends StatelessWidget {
   }
 
   Stream<int> rssiStream(
-      {Duration frequency = const Duration(seconds: 5),
-      int? maxItems}) async* {
+      {Duration frequency = const Duration(seconds: 5), int? maxItems}) async* {
     var isConnected = true;
     final subscription = device.connectionState.listen((v) {
       isConnected = v == BluetoothConnectionState.connected;
