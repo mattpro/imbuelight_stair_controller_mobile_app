@@ -10,6 +10,7 @@ class BluetoothController extends GetxController {
   RxString nameOfDevice = ''.obs;
   RxString sub = ''.obs;
   Rx<double> distanceValue = 0.0.obs;
+  Rx<double> lightIntensityValue = 0.0.obs;
   late BluetoothCharacteristic _characteristicToWrite;
   late BluetoothDevice currentDevice;
 
@@ -83,7 +84,10 @@ class BluetoothController extends GetxController {
             sub = RxString(String.fromCharCodes(value));
             distanceValue = RxDouble(
                 double.parse(String.fromCharCodes(value.sublist(6, 9)).trim()));
+            lightIntensityValue = RxDouble(double.parse(
+                String.fromCharCodes(value.sublist(15, 19)).trim()));
           });
+
           device.connectionState.listen((BluetoothConnectionState state) {
             if (state == BluetoothConnectionState.disconnected) {
               // stop listening to characteristic
@@ -114,18 +118,21 @@ class BluetoothController extends GetxController {
     var dataToSend = ascii.encode(value < 100.00
         ? 'd0' + value.round().toString()
         : 'd' + value.round().toString());
-    // List<BluetoothService> services = await currentDevice.discoverServices();
-    // for (var service in services) {
-    //   var characteristics = service.characteristics;
-    //   for (BluetoothCharacteristic c in characteristics) {
-    //     if (c.isNotifying) {
-    //       await c.setNotifyValue(true);
-    //     }
-    //     if (c.properties.write) {
-    //       await c.write(dataToSend);
-    //     }
-    //   }
-    // }
+
+    await _characteristicToWrite.write(dataToSend);
+  }
+
+  changedLightIntesity(double value) async {
+    String formatData = 'l0200';
+    if (value < 100.00) {
+      formatData = 'l00' + value.round().toString();
+    } else if (value >= 100 && value < 1000) {
+      formatData = 'l0' + value.round().toString();
+    } else {
+      'l' + value.round().toString();
+    }
+
+    var dataToSend = ascii.encode(formatData);
     await _characteristicToWrite.write(dataToSend);
   }
 }
