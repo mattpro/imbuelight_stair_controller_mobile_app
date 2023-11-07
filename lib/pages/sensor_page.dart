@@ -51,8 +51,13 @@ class SensorPage extends StatelessWidget {
                             )),
                         child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Obx(
-                                () => bulpIconDisplay(tc.subscription.value)))),
+                            child: Obx(() => tc.subscription.value.isNotEmpty
+                                ? bulpIconDisplay(tc.subscription.value)
+                                : Image(
+                                    image:
+                                        AssetImage('assets/lightbulp_off.png'),
+                                    height: 80,
+                                  )))),
                     const SizedBox(
                       height: 30,
                     ),
@@ -120,7 +125,7 @@ class SensorPage extends StatelessWidget {
                           child: Obx(() => SleekCircularSlider(
                                 initialValue: _lightIntesityValue.value,
                                 min: 0,
-                                max: 4095,
+                                max: 14895,
                                 onChange: (value) async {
                                   _lightIntesityValue.value = value;
                                 },
