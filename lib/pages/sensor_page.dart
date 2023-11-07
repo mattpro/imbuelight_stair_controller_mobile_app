@@ -120,7 +120,7 @@ class SensorPage extends StatelessWidget {
                           child: Obx(() => SleekCircularSlider(
                                 initialValue: _lightIntesityValue.value,
                                 min: 0,
-                                max: 14800,
+                                max: 4095,
                                 onChange: (value) async {
                                   _lightIntesityValue.value = value;
                                 },
