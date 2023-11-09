@@ -15,6 +15,8 @@ class SensorPage extends StatelessWidget {
     final TimerController tc = Get.put(TimerController());
     Rx<double> _value = c.distanceValue.value.obs;
     Rx<double> _lightIntesityValue = c.lightIntensityValue.value.obs;
+    Rx<int> _lightIntesityValuePerPercent =
+        (c.lightIntensityValue.value * 100 / 4095).round().obs;
 
     tc.onReady();
 
@@ -37,8 +39,8 @@ class SensorPage extends StatelessWidget {
                                 fontStyle(Weight.bold, 25, Colors.white, true),
                           ),
                         )),
-                    // Obx(() => Text(tc.subscription.value,
-                    //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
+                    Obx(() => Text(tc.subscription.value,
+                        style: fontStyle(Weight.bold, 12, Colors.white, true))),
                     // Obx(() => Text('${c.lightIntensityValue.value}',
                     //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
                     Container(
@@ -60,6 +62,22 @@ class SensorPage extends StatelessWidget {
                                   )))),
                     const SizedBox(
                       height: 30,
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Odczyt z czujnika: ",
+                              style: fontStyle(
+                                  Weight.bold, 16, Colors.white, true)),
+                          Obx(() => Text(
+                              int.parse(tc.currentSensorValue.value) <= 200
+                                  ? tc.currentSensorValue.value + " cm"
+                                  : "więcej niż 200 cm",
+                              style: fontStyle(
+                                  Weight.bold, 16, Colors.white, true))),
+                        ],
+                      ),
                     ),
                     Padding(
                       padding:
@@ -112,6 +130,31 @@ class SensorPage extends StatelessWidget {
                     Text(
                       'Natężenie światła',
                       style: fontStyle(Weight.bold, 22, Colors.white, true),
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text("Odczyt z czujnika: ",
+                                style: fontStyle(
+                                    Weight.bold, 16, Colors.white, true)),
+                            Obx(() => Text("${tc.currentIntensityValue} %",
+                                style: fontStyle(
+                                    Weight.bold, 16, Colors.white, true)))
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text("Wartość zadana: ",
+                                style: fontStyle(
+                                    Weight.bold, 16, Colors.white, true)),
+                            Obx(() => Text(
+                                "${_lightIntesityValuePerPercent.value} %",
+                                style: fontStyle(
+                                    Weight.bold, 16, Colors.white, true)))
+                          ],
+                        ),
+                      ],
                     ),
                     SizedBox(height: 18),
                     Row(
