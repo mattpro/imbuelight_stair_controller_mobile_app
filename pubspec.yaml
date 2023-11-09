@@ -37,7 +37,6 @@ dependencies:
   flutter_blue_plus: ^1.15.8
   permission_handler: ^11.0.0
   get: ^4.6.6
-  flutter_native_splash: ^2.3.4
   sleek_circular_slider: ^2.0.1
   win_ble: ^1.0.1
 
