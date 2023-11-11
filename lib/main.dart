@@ -20,7 +20,7 @@ void main() {
       runApp(const MyApp());
     });
   } else {
-    runApp(const DisconnectApp());
+    runApp(const MyApp());
   }
 }
 
