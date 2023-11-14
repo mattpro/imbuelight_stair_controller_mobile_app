@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_controller.dart';
@@ -16,21 +18,43 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             backgroundColor: Color(AppColor.background.value),
             body: SafeArea(
-              child: RefreshIndicator(
-                onRefresh: () => _onFresh(controller),
-                child: SingleChildScrollView(
-                  child: Column(children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 50),
-                      child: Text(
-                        'Szukaj urządzenia',
-                        style: fontStyle(Weight.bold, 27, Colors.white, true),
+              child: Platform.isMacOS
+                  ? Column(
+                      children: [
+                        IconButton(
+                            onPressed: () async => await _onFresh(controller),
+                            icon: Icon(Icons.refresh)),
+                        SingleChildScrollView(
+                          child: Column(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 50),
+                              child: Text(
+                                'Szukaj urządzenia',
+                                style: fontStyle(
+                                    Weight.bold, 27, Colors.white, true),
+                              ),
+                            ),
+                            const DevicesList(),
+                          ]),
+                        ),
+                      ],
+                    )
+                  : RefreshIndicator(
+                      onRefresh: () => _onFresh(controller),
+                      child: SingleChildScrollView(
+                        child: Column(children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 50),
+                            child: Text(
+                              'Szukaj urządzenia',
+                              style: fontStyle(
+                                  Weight.bold, 27, Colors.white, true),
+                            ),
+                          ),
+                          const DevicesList(),
+                        ]),
                       ),
                     ),
-                    const DevicesList(),
-                  ]),
-                ),
-              ),
             ),
           );
         });
