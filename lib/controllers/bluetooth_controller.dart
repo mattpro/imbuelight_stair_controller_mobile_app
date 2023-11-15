@@ -34,7 +34,7 @@ class BluetoothController extends GetxController {
   validationControllers(AsyncSnapshot<List<ScanResult>> snapshot) {
     List<ScanResult> imbue = snapshot.data!
         .where((i) => i.device.platformName.isNotEmpty
-            ? i.device.platformName.substring(0, 17) == "Imbue Light Stair"
+            ? i.device.platformName == "Imbue Light Stair"
             : false)
         .toList();
 

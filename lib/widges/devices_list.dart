@@ -19,7 +19,7 @@ class DevicesList extends StatelessWidget {
         stream: FlutterBluePlus.scanResults,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<ScanResult> imbueSensors = bc.validationSensors(snapshot);
+            List<ScanResult> imbueSensors = snapshot.data!;
             List<ScanResult> imbueControllers =
                 bc.validationControllers(snapshot);
             return Column(
@@ -33,8 +33,7 @@ class DevicesList extends StatelessWidget {
                   ),
                   deviceTitle(TypeOfDevice.controller),
                   const SizedBox(height: 15),
-                  imbueList(
-                      imbueControllers, bc, TypeOfDevice.controller, height),
+                  imbueList(imbueSensors, bc, TypeOfDevice.controller, height),
                   const SizedBox(
                     height: 40,
                   ),
@@ -48,6 +47,7 @@ class DevicesList extends StatelessWidget {
 
 Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
     TypeOfDevice typeofDevice, double height) {
+  print(imbue.length);
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: Container(
@@ -63,7 +63,7 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
         ],
       ),
       constraints:
-          BoxConstraints(maxHeight: height * 0.40, minWidth: double.infinity),
+          BoxConstraints(minHeight: height * 0.40, minWidth: double.infinity),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: Column(children: [
@@ -73,25 +73,24 @@ Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
                   shrinkWrap: true,
                   itemCount: imbue.length,
                   itemBuilder: (context, index) {
-                    imbue.sort((a, b) => a.rssi.compareTo(b.rssi));
+                    // imbue.sort((a, b) => a.rssi.compareTo(b.rssi));
                     final data = imbue[index];
                     return Card(
                       elevation: 4,
                       child: ListTile(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          title: Text(
-                              data.device.platformName.substring(0, 17).trim(),
+                          title: Text(data.device.platformName,
                               style: fontStyle(
                                   Weight.bold, 15, Colors.black, false)),
-                          subtitle: Text(
-                              data.device.platformName
-                                  .substring(
-                                    17,
-                                  )
-                                  .trim(),
-                              style: fontStyle(
-                                  Weight.bold, 11, Colors.black, false)),
+                          // subtitle: Text(
+                          //     data.device.platformName
+                          //         .substring(
+                          //           17,
+                          //         )
+                          //         .trim(),
+                          //     style: fontStyle(
+                          //         Weight.bold, 11, Colors.black, false)),
                           trailing: bluetoothImage(data),
 
                           // Text(data.rssi.toString()),
