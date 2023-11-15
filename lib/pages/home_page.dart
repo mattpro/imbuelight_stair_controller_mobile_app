@@ -18,26 +18,26 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             backgroundColor: Color(AppColor.background.value),
             body: SafeArea(
-              child: Platform.isMacOS
-                  ? Column(
-                      children: [
-                        IconButton(
-                            onPressed: () async => await _onFresh(controller),
-                            icon: Icon(Icons.refresh)),
-                        SingleChildScrollView(
-                          child: Column(children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 50),
-                              child: Text(
-                                'Szukaj urządzenia',
-                                style: fontStyle(
-                                    Weight.bold, 27, Colors.white, true),
-                              ),
-                            ),
-                            const DevicesList(),
-                          ]),
-                        ),
-                      ],
+              child: Platform.isLinux
+                  ? SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 50),
+                          Text(
+                            'Szukaj urządzenia',
+                            style:
+                                fontStyle(Weight.bold, 27, Colors.white, true),
+                          ),
+                          IconButton(
+                              onPressed: () async => await _onFresh(controller),
+                              icon: Icon(
+                                Icons.refresh_sharp,
+                                color: Colors.white,
+                                size: 30,
+                              )),
+                          const DevicesList(),
+                        ],
+                      ),
                     )
                   : RefreshIndicator(
                       onRefresh: () => _onFresh(controller),
