@@ -114,6 +114,13 @@ class BluetoothController extends GetxController {
     // return [sub, name];
   }
 
+  // quickConnectionWithDevice(BluetoothDevice device, state) async {
+  //   await device.connect();
+  //   await readDeviceName(device);
+  //   currentDevice = device;
+  //   await device.disconnect();
+  // }
+
   changedDistance(double value) async {
     var dataToSend = ascii.encode(value < 100.00
         ? 'd0' + value.round().toString()
