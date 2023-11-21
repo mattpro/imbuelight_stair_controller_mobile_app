@@ -20,7 +20,7 @@ void main() {
       runApp(const MyApp());
     });
   } else {
-    runApp(const DisconnectApp());
+    runApp(const MyApp());
   }
 }
 
@@ -30,13 +30,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       title: 'IL Stair Controller',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home:  HomePage(),
     );
   }
 }

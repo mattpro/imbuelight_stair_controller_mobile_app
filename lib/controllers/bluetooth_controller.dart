@@ -13,6 +13,19 @@ class BluetoothController extends GetxController {
   Rx<double> lightIntensityValue = 0.0.obs;
   late BluetoothCharacteristic _characteristicToWrite;
   late BluetoothDevice currentDevice;
+  Rx<bool> isBluetoothOn = false.obs;
+
+  checkBluetooth() {
+    Duration(seconds: 3);
+    FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
+    if (state == BluetoothAdapterState.on) {
+        isBluetoothOn = true.obs
+        ;
+    } else {
+        isBluetoothOn = false.obs;
+    }
+});
+  }
 
   Future<void> scanDevices() async {
     if (FlutterBluePlus.isScanningNow == false) {
