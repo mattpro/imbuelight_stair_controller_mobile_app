@@ -49,7 +49,6 @@ class DevicesList extends StatelessWidget {
 
 Widget imbueList(List<ScanResult> imbue, BluetoothController bc,
     TypeOfDevice typeofDevice, double height) {
-  print(imbue.length);
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: Container(

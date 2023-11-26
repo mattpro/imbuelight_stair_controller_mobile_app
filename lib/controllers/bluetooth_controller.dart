@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -18,13 +20,12 @@ class BluetoothController extends GetxController {
   checkBluetooth() {
     Duration(seconds: 3);
     FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
-    if (state == BluetoothAdapterState.on) {
-        isBluetoothOn = true.obs
-        ;
-    } else {
+      if (state == BluetoothAdapterState.on) {
+        isBluetoothOn = true.obs;
+      } else {
         isBluetoothOn = false.obs;
-    }
-});
+      }
+    });
   }
 
   Future<void> scanDevices() async {
@@ -70,9 +71,11 @@ class BluetoothController extends GetxController {
         }
         if (c.properties.read) {
           List<int> value = await c.read();
-          if (String.fromCharCodes(value)[0] == "I") {
+          if (utf8.decode(value)[0] == "I") {
             // Iterable<int> name = value;
-            nameOfDevice = RxString(String.fromCharCodes(value));
+            nameOfDevice = RxString(utf8.decode(value));
+            print('NAZWA');
+            print(nameOfDevice);
           }
         }
         if (c.properties.write) {
@@ -84,6 +87,7 @@ class BluetoothController extends GetxController {
 
   readDeviceValue(device) async {
     List<BluetoothService> services = await device.discoverServices();
+
     for (var service in services) {
       var characteristics = service.characteristics;
       for (BluetoothCharacteristic c in characteristics) {
@@ -94,11 +98,14 @@ class BluetoothController extends GetxController {
           await c.setNotifyValue(true);
           final subscription = c.onValueReceived.listen((value) {
             const Duration(milliseconds: 1000);
-            sub = RxString(String.fromCharCodes(value));
-            distanceValue = RxDouble(
-                double.parse(String.fromCharCodes(value.sublist(6, 9)).trim()));
-            lightIntensityValue = RxDouble(double.parse(
-                String.fromCharCodes(value.sublist(15, 19)).trim()));
+            print('Wartość');
+            print(Uint8List.fromList(value).buffer.asInt8List());
+
+            sub = RxString(utf8.decode(value));
+            distanceValue =
+                RxDouble(double.parse(utf8.decode(value.sublist(6, 9)).trim()));
+            lightIntensityValue = RxDouble(
+                double.parse(utf8.decode(value.sublist(15, 19)).trim()));
           });
 
           device.connectionState.listen((BluetoothConnectionState state) {
