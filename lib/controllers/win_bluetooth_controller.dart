@@ -24,9 +24,7 @@ class WinBluetoothController extends GetxController {
   void initState() {
     initialize();
     // call winBLe.dispose() when done
-    connectionStream = WinBle.connectionStream.listen((event) {
-      print("Connection Event : " + event.toString());
-    });
+    connectionStream = WinBle.connectionStream.listen((event) {});
 
     // Listen to Scan Stream , we can cancel in onDispose()
     scanStream = WinBle.scanStream.listen((event) {

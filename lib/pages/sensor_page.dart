@@ -13,8 +13,8 @@ class SensorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final BluetoothController c = Get.put(BluetoothController());
     final TimerController tc = Get.put(TimerController());
-    Rx<double> _value = c.distanceValue.value.obs;
-    Rx<double> _lightIntesityValue = c.lightIntensityValue.value.obs;
+    Rx<int> _value = c.distanceValue.value.obs;
+    Rx<int> _lightIntesityValue = c.lightIntensityValue.value.obs;
     Rx<int> _lightIntesityValuePerPercent =
         (c.lightIntensityValue.value * 100 / 4095).round().obs;
 
@@ -39,7 +39,7 @@ class SensorPage extends StatelessWidget {
                                 fontStyle(Weight.bold, 25, Colors.white, true),
                           ),
                         )),
-                    Obx(() => Text(tc.subscription.value,
+                    Obx(() => Text(tc.subscription.toString(),
                         style: fontStyle(Weight.bold, 12, Colors.white, true))),
                     // Obx(() => Text('${c.lightIntensityValue.value}',
                     //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
@@ -54,7 +54,7 @@ class SensorPage extends StatelessWidget {
                         child: Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Obx(() => tc.subscription.value.isNotEmpty
-                                ? bulpIconDisplay(tc.subscription.value)
+                                ? bulpIconDisplay(tc.subscription[0])
                                 : Image(
                                     image:
                                         AssetImage('assets/lightbulp_off.png'),
@@ -71,9 +71,10 @@ class SensorPage extends StatelessWidget {
                               style: fontStyle(
                                   Weight.bold, 16, Colors.white, true)),
                           Obx(() => Text(
-                              int.parse(tc.currentSensorValue.value) <= 200
-                                  ? tc.currentSensorValue.value + " cm"
-                                  : "więcej niż 200 cm",
+                              '${tc.currentSensorValue.value}' + " cm",
+                              // tc.currentSensorValue <= 200
+                              //     ? '${tc.currentSensorValue}' + " cm"
+                              //     : "więcej niż 200 cm",
                               style: fontStyle(
                                   Weight.bold, 16, Colors.white, true))),
                         ],
@@ -111,9 +112,9 @@ class SensorPage extends StatelessWidget {
                                 Obx(() => SizedBox(
                                       height: 50,
                                       child: Slider(
-                                        value: _value.value,
+                                        value: _value.value.toDouble(),
                                         onChanged: (value) => {
-                                          _value.value = value,
+                                          _value.value = value.toInt(),
                                         },
                                         onChangeEnd: (double value) async {
                                           await c.changedDistance(value);
@@ -166,11 +167,12 @@ class SensorPage extends StatelessWidget {
                           height: 230,
                           width: 230,
                           child: Obx(() => SleekCircularSlider(
-                                initialValue: _lightIntesityValue.value,
+                                initialValue:
+                                    _lightIntesityValue.value.toDouble(),
                                 min: 0,
-                                max: 14895,
+                                max: 4095,
                                 onChange: (value) async {
-                                  _lightIntesityValue.value = value;
+                                  _lightIntesityValue.value = value.toInt();
                                 },
                                 onChangeEnd: (value) async {
                                   await c.changedLightIntesity(value);
@@ -205,10 +207,9 @@ class SensorPage extends StatelessWidget {
   }
 }
 
-Image bulpIconDisplay(String subscription) {
-  String sensor = subscription.substring(0, 1);
+Image bulpIconDisplay(int subscription) {
   final String icon;
-  if (sensor == "1") {
+  if (subscription == 1) {
     icon = 'assets/lightbulp_on.png';
   } else {
     icon = 'assets/lightbulp_off.png';

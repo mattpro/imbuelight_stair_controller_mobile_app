@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:typed_data';
 
+import 'package:binary/binary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
@@ -10,9 +11,12 @@ import 'package:imbuelight_stair_controller_mobile_app/pages/sensor_page.dart';
 class BluetoothController extends GetxController {
   AsciiCodec ascii = AsciiCodec();
   RxString nameOfDevice = ''.obs;
-  RxString sub = ''.obs;
-  Rx<double> distanceValue = 0.0.obs;
-  Rx<double> lightIntensityValue = 0.0.obs;
+  RxList<int> sub = [1].obs;
+  Rx<int> distanceValue = 0.obs;
+  RxInt currentDistanceValue = 1.obs;
+  Rx<int> lightIntensityValue = 0.obs;
+  Rx<int> currentlightIntensityValue = 0.obs;
+  Rx<int> isEnableDistance = 0.obs;
   late BluetoothCharacteristic _characteristicToWrite;
   late BluetoothDevice currentDevice;
   Rx<bool> isBluetoothOn = false.obs;
@@ -74,8 +78,6 @@ class BluetoothController extends GetxController {
           if (utf8.decode(value)[0] == "I") {
             // Iterable<int> name = value;
             nameOfDevice = RxString(utf8.decode(value));
-            print('NAZWA');
-            print(nameOfDevice);
           }
         }
         if (c.properties.write) {
@@ -98,14 +100,19 @@ class BluetoothController extends GetxController {
           await c.setNotifyValue(true);
           final subscription = c.onValueReceived.listen((value) {
             const Duration(milliseconds: 1000);
-            print('Wartość');
-            print(Uint8List.fromList(value).buffer.asInt8List());
 
-            sub = RxString(utf8.decode(value));
-            distanceValue =
-                RxDouble(double.parse(utf8.decode(value.sublist(6, 9)).trim()));
-            lightIntensityValue = RxDouble(
-                double.parse(utf8.decode(value.sublist(15, 19)).trim()));
+            sub.value = Uint8List.fromList(value);
+
+            currentDistanceValue.value = sub[1] * 256 + sub[2];
+            currentlightIntensityValue.value =
+                sub[3] > 250 ? 0 : sub[3] * 256 + sub[4];
+            distanceValue.value = sub[8] * 256 + sub[9];
+            int operator = 258;
+            Uint8List list = Uint8List.fromList([operator >> 8, operator]);
+            print(list[1]);
+
+            lightIntensityValue.value = sub[10] * 256 + sub[11];
+            isEnableDistance.value = sub[5];
           });
 
           device.connectionState.listen((BluetoothConnectionState state) {
