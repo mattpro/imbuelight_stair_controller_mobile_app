@@ -74,6 +74,8 @@ class SensorPage extends StatelessWidget {
                             )),
                         child: Padding(
                             padding: EdgeInsets.all(10.0),
+
+                            // ignore: invalid_use_of_protected_member
                             child: Obx(() => tc.subscription.value.isNotEmpty
                                 ? bulpIconDisplay(tc.subscription[0])
                                 : Image(
@@ -92,10 +94,9 @@ class SensorPage extends StatelessWidget {
                               style: fontStyle(
                                   Weight.bold, 16, Colors.white, true)),
                           Obx(() => Text(
-                              '${tc.currentSensorValue.value}' + " cm",
-                              // tc.currentSensorValue <= 200
-                              //     ? '${tc.currentSensorValue}' + " cm"
-                              //     : "więcej niż 200 cm",
+                              tc.currentSensorValue <= 200
+                                  ? '${tc.currentSensorValue}' + " cm"
+                                  : "więcej niż 200 cm",
                               style: fontStyle(
                                   Weight.bold, 16, Colors.white, true))),
                         ],

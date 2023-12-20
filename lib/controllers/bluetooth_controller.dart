@@ -1,8 +1,5 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:typed_data';
-
-import 'package:binary/binary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
@@ -40,8 +37,10 @@ class BluetoothController extends GetxController {
 
   validationSensors(AsyncSnapshot<List<ScanResult>> snapshot) {
     List<ScanResult> imbue = snapshot.data!
-        .where((i) => i.device.platformName.isNotEmpty
-            ? i.device.platformName.substring(0, 16) == "Imbue Light Move"
+        .where((i) => i.device.platformName.isNotEmpty &&
+                i.device.platformName.length > 17
+            ? i.device.platformName.substring(0, 17).trim() ==
+                "Imbue Light Move"
             : false)
         .toList();
 
@@ -50,8 +49,10 @@ class BluetoothController extends GetxController {
 
   validationControllers(AsyncSnapshot<List<ScanResult>> snapshot) {
     List<ScanResult> imbue = snapshot.data!
-        .where((i) => i.device.platformName.isNotEmpty
-            ? i.device.platformName == "Imbue Light Stair"
+        .where((i) => i.device.platformName.isNotEmpty &&
+                i.device.platformName.length > 17
+            ? i.device.platformName.substring(0, 17).trim() ==
+                "Imbue Light Stair"
             : false)
         .toList();
 
@@ -75,7 +76,6 @@ class BluetoothController extends GetxController {
         if (c.properties.read) {
           List<int> value = await c.read();
           if (utf8.decode(value)[0] == "I") {
-            // Iterable<int> name = value;
             nameOfDevice = RxString(utf8.decode(value));
           }
         }
