@@ -30,23 +30,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       title: 'IL Stair Controller',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  HomePage(),
+      home: HomePage(),
     );
-  }
-}
-
-class DisconnectApp extends StatelessWidget {
-  const DisconnectApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

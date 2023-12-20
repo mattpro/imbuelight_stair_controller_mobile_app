@@ -11,12 +11,12 @@ class SensorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BluetoothController c = Get.put(BluetoothController());
+    final BluetoothController bc = Get.put(BluetoothController());
     final TimerController tc = Get.put(TimerController());
-    Rx<int> _value = c.distanceValue.value.obs;
-    Rx<int> _lightIntesityValue = c.lightIntensityValue.value.obs;
+    Rx<int> _value = bc.distanceValue.value.obs;
+    Rx<int> _lightIntesityValue = bc.lightIntensityValue.value.obs;
     Rx<int> _lightIntesityValuePerPercent =
-        (c.lightIntensityValue.value * 100 / 4095).round().obs;
+        (bc.lightIntensityValue.value * 100 / 4095).round().obs;
 
     tc.onReady();
 
@@ -30,17 +30,38 @@ class SensorPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Padding(padding: EdgeInsets.only(top: 10)),
+                    Row(
+                      children: [
+                        SizedBox(width: 12),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(47, 0, 255, 255),
+                              borderRadius: BorderRadius.circular(50)),
+                          child: IconButton(
+                            onPressed: () async => {
+                              await bc
+                                  .disconnectionWithDevice(bc.currentDevice),
+                              Get.back(),
+                            },
+                            icon: Icon(Icons.arrow_back),
+                            color: Colors.white,
+                            iconSize: 30.0,
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
                         padding: EdgeInsets.symmetric(vertical: 30),
                         child: Obx(
                           () => Text(
-                            "${c.nameOfDevice}",
+                            "${bc.nameOfDevice}",
                             style:
                                 fontStyle(Weight.bold, 25, Colors.white, true),
                           ),
                         )),
-                    Obx(() => Text(tc.subscription.toString(),
-                        style: fontStyle(Weight.bold, 12, Colors.white, true))),
+                    // Obx(() => Text(tc.subscription.toString(),
+                    //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
                     // Obx(() => Text('${c.lightIntensityValue.value}',
                     //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
                     Container(
@@ -117,9 +138,9 @@ class SensorPage extends StatelessWidget {
                                           _value.value = value.toInt(),
                                         },
                                         onChangeEnd: (double value) async {
-                                          await c.changedDistance(value);
+                                          await bc.changedDistance(value);
                                         },
-                                        label: '${c.distanceValue.value}',
+                                        label: '${bc.distanceValue.value}',
                                         min: 10.0,
                                         max: 200.0,
                                       ),
@@ -132,7 +153,9 @@ class SensorPage extends StatelessWidget {
                       'Natężenie światła',
                       style: fontStyle(Weight.bold, 22, Colors.white, true),
                     ),
+                    SizedBox(height: 15),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
@@ -175,7 +198,7 @@ class SensorPage extends StatelessWidget {
                                   _lightIntesityValue.value = value.toInt();
                                 },
                                 onChangeEnd: (value) async {
-                                  await c.changedLightIntesity(value);
+                                  await bc.changedLightIntesity(value);
                                 },
                                 appearance: CircularSliderAppearance(
                                     customWidths: CustomSliderWidths(

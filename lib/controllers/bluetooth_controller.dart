@@ -22,7 +22,6 @@ class BluetoothController extends GetxController {
   Rx<bool> isBluetoothOn = false.obs;
 
   checkBluetooth() {
-    Duration(seconds: 3);
     FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
       if (state == BluetoothAdapterState.on) {
         isBluetoothOn = true.obs;
@@ -99,7 +98,7 @@ class BluetoothController extends GetxController {
         if (c.properties.notify) {
           await c.setNotifyValue(true);
           final subscription = c.onValueReceived.listen((value) {
-            const Duration(milliseconds: 1000);
+            // const Duration(milliseconds: 1000);
 
             sub.value = Uint8List.fromList(value);
 
@@ -137,8 +136,15 @@ class BluetoothController extends GetxController {
     await readDeviceValue(device);
     await readDeviceName(device);
     currentDevice = device;
-    Get.to(() => SensorPage());
+    Get.to(() => SensorPage(),
+        transition: Transition.rightToLeftWithFade,
+        duration: const Duration(milliseconds: 500));
     // return [sub, name];
+  }
+
+  disconnectionWithDevice(BluetoothDevice device) async {
+    await device.disconnect();
+    scanDevices();
   }
 
   // quickConnectionWithDevice(BluetoothDevice device, state) async {

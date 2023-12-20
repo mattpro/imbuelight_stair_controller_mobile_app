@@ -40,6 +40,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   win_ble: ^1.0.1
   binary: ^3.0.1
+  page_transition: ^2.1.0
 
 dev_dependencies:
   flutter_test:
