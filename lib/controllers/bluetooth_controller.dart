@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:typed_data';
+import 'package:binary/binary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
+import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/pages/sensor_page.dart';
 
 class BluetoothController extends GetxController {
@@ -14,9 +17,12 @@ class BluetoothController extends GetxController {
   Rx<int> lightIntensityValue = 0.obs;
   Rx<int> currentlightIntensityValue = 0.obs;
   Rx<int> isEnableDistance = 0.obs;
+  Rx<int> isEnableLightIntensity = 0.obs;
+  Rx<int> isEnableLedSignalization = 0.obs;
   late BluetoothCharacteristic _characteristicToWrite;
   late BluetoothDevice currentDevice;
   Rx<bool> isBluetoothOn = false.obs;
+  List<int> reciveValueList = [];
 
   checkBluetooth() {
     FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
@@ -106,12 +112,23 @@ class BluetoothController extends GetxController {
             currentlightIntensityValue.value =
                 sub[3] > 250 ? 0 : sub[3] * 256 + sub[4];
             distanceValue.value = sub[8] * 256 + sub[9];
-            int operator = 258;
-            Uint8List list = Uint8List.fromList([operator >> 8, operator]);
-            print(list[1]);
+
+            // int operator = 258;
+            // Uint8List list = Uint8List.fromList([operator >> 8, operator]);
+            // print(list[1]);
 
             lightIntensityValue.value = sub[10] * 256 + sub[11];
             isEnableDistance.value = sub[5];
+            isEnableLightIntensity.value = sub[6];
+            isEnableLedSignalization.value = sub[7];
+            reciveValueList = [
+              isEnableDistance.value,
+              isEnableLightIntensity.value,
+              sub[8],
+              sub[9],
+              sub[10],
+              sub[11],
+            ];
           });
 
           device.connectionState.listen((BluetoothConnectionState state) {
@@ -154,25 +171,32 @@ class BluetoothController extends GetxController {
   //   await device.disconnect();
   // }
 
-  changedDistance(double value) async {
-    var dataToSend = ascii.encode(value < 100.00
-        ? 'd0' + value.round().toString()
-        : 'd' + value.round().toString());
+  //TODO: Add a recive value
 
-    await _characteristicToWrite.write(dataToSend);
-  }
-
-  changedLightIntesity(double value) async {
-    String formatData = 'l0200';
-    if (value < 100.00) {
-      formatData = 'l00' + value.round().toString();
-    } else if (value >= 100 && value < 1000) {
-      formatData = 'l0' + value.round().toString();
-    } else {
-      'l' + value.round().toString();
+  changedValue(TypeOfValue typeOfValue, int value) async {
+    Uint8List _convertToUint8 = Uint8List.fromList([value >> 8, value]);
+    List<int> _sendList = reciveValueList;
+    switch (typeOfValue) {
+      case TypeOfValue.enableDistance:
+        _sendList[0] = value;
+        break;
+      case TypeOfValue.enablelightIntesity:
+        _sendList[1] = value;
+        break;
+      case TypeOfValue.enableLedSignalization:
+        _sendList[1] = value;
+        break;
+      case TypeOfValue.distance:
+        _sendList[2] = _convertToUint8[0];
+        _sendList[3] = _convertToUint8[1];
+        break;
+      case TypeOfValue.lightIntesity:
+        _sendList[4] = _convertToUint8[0];
+        _sendList[5] = _convertToUint8[1];
+        break;
+      default:
     }
-
-    var dataToSend = ascii.encode(formatData);
-    await _characteristicToWrite.write(dataToSend);
+    print(_sendList);
+    await _characteristicToWrite.write(_sendList);
   }
 }

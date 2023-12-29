@@ -139,7 +139,9 @@ class SensorPage extends StatelessWidget {
                                           _value.value = value.toInt(),
                                         },
                                         onChangeEnd: (double value) async {
-                                          await bc.changedDistance(value);
+                                          await bc.changedValue(
+                                              TypeOfValue.distance,
+                                              value.toInt());
                                         },
                                         label: '${bc.distanceValue.value}',
                                         min: 10.0,
@@ -199,7 +201,8 @@ class SensorPage extends StatelessWidget {
                                   _lightIntesityValue.value = value.toInt();
                                 },
                                 onChangeEnd: (value) async {
-                                  await bc.changedLightIntesity(value);
+                                  await bc.changedValue(
+                                      TypeOfValue.lightIntesity, value.toInt());
                                 },
                                 appearance: CircularSliderAppearance(
                                     customWidths: CustomSliderWidths(

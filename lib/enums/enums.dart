@@ -13,3 +13,11 @@ enum AppColor {
 }
 
 enum TypeOfDevice { sensor, controller }
+
+enum TypeOfValue {
+  enableDistance,
+  enablelightIntesity,
+  enableLedSignalization,
+  distance,
+  lightIntesity
+}
