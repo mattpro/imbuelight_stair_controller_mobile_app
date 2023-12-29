@@ -60,6 +60,22 @@ class SensorPage extends StatelessWidget {
                                 fontStyle(Weight.bold, 25, Colors.white, true),
                           ),
                         )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SwitchButtonWidget(
+                          typoOfButton: TypeOfButton.ledSignalization,
+                        ),
+                        SwitchButtonWidget(
+                          typoOfButton: TypeOfButton.distance,
+                        ),
+                        SwitchButtonWidget(
+                          typoOfButton: TypeOfButton.lightIntesity,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 35),
+
                     // Obx(() => Text(tc.subscription.toString(),
                     //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
                     // Obx(() => Text('${c.lightIntensityValue.value}',
@@ -84,8 +100,13 @@ class SensorPage extends StatelessWidget {
                                     height: 80,
                                   )))),
                     const SizedBox(
-                      height: 30,
+                      height: 40,
                     ),
+                    Text(
+                      'Dystans',
+                      style: fontStyle(Weight.bold, 22, Colors.white, true),
+                    ),
+                    SizedBox(height: 15),
                     Container(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -231,6 +252,63 @@ class SensorPage extends StatelessWidget {
             ),
           );
         });
+  }
+}
+
+// ignore: must_be_immutable
+class SwitchButtonWidget extends StatelessWidget {
+  TypeOfButton typoOfButton;
+
+  SwitchButtonWidget({super.key, required this.typoOfButton});
+
+  late IconData icon;
+  late String info;
+
+  @override
+  Widget build(BuildContext context) {
+    switch (typoOfButton) {
+      case TypeOfButton.ledSignalization:
+        icon = Icons.lightbulb;
+        info = 'Sygnalizacja Led';
+      case TypeOfButton.distance:
+        icon = Icons.toggle_off_rounded;
+        info = 'Mierzenie dystansu';
+        break;
+      case TypeOfButton.lightIntesity:
+        icon = Icons.light_mode_outlined;
+        info = 'Natężenie światła';
+      default:
+        icon = Icons.light_mode_outlined;
+    }
+    return Flexible(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            info,
+            textAlign: TextAlign.center,
+            style: fontStyle(Weight.bold, 14, Colors.white, true),
+          ),
+          SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+                color: Color.fromARGB(47, 0, 255, 255),
+                borderRadius: BorderRadius.circular(50)),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: IconButton(
+                onPressed: () async => {
+                  Get.back(),
+                },
+                icon: Icon(icon),
+                color: Color(AppColor.background.value),
+                iconSize: 50.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

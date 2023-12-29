@@ -21,3 +21,5 @@ enum TypeOfValue {
   distance,
   lightIntesity
 }
+
+enum TypeOfButton { ledSignalization, distance, lightIntesity }
