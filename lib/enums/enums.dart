@@ -6,7 +6,8 @@ enum AppColor {
   second(0xFF00FFFF),
   third(0xFFffff00),
   fourth(0xFFff00ff),
-  background(0xFF0C1657);
+  background(0xFF0C1657),
+  white(0xFFffffff);
 
   final int value;
   const AppColor(this.value);

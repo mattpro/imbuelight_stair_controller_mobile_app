@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_controller.dart';
 import 'package:imbuelight_stair_controller_mobile_app/controllers/timer_controller.dart';
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
+import 'package:imbuelight_stair_controller_mobile_app/widges/switch_button_widget.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class SensorPage extends StatelessWidget {
@@ -252,63 +254,6 @@ class SensorPage extends StatelessWidget {
             ),
           );
         });
-  }
-}
-
-// ignore: must_be_immutable
-class SwitchButtonWidget extends StatelessWidget {
-  TypeOfButton typoOfButton;
-
-  SwitchButtonWidget({super.key, required this.typoOfButton});
-
-  late IconData icon;
-  late String info;
-
-  @override
-  Widget build(BuildContext context) {
-    switch (typoOfButton) {
-      case TypeOfButton.ledSignalization:
-        icon = Icons.lightbulb;
-        info = 'Sygnalizacja Led';
-      case TypeOfButton.distance:
-        icon = Icons.toggle_off_rounded;
-        info = 'Mierzenie dystansu';
-        break;
-      case TypeOfButton.lightIntesity:
-        icon = Icons.light_mode_outlined;
-        info = 'Natężenie światła';
-      default:
-        icon = Icons.light_mode_outlined;
-    }
-    return Flexible(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            info,
-            textAlign: TextAlign.center,
-            style: fontStyle(Weight.bold, 14, Colors.white, true),
-          ),
-          SizedBox(height: 10),
-          Container(
-            decoration: BoxDecoration(
-                color: Color.fromARGB(47, 0, 255, 255),
-                borderRadius: BorderRadius.circular(50)),
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: IconButton(
-                onPressed: () async => {
-                  Get.back(),
-                },
-                icon: Icon(icon),
-                color: Color(AppColor.background.value),
-                iconSize: 50.0,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 
