@@ -17,9 +17,6 @@ class SensorPage extends StatelessWidget {
     final TimerController tc = Get.put(TimerController());
     Rx<int> _value = bc.distanceValue.value.obs;
     Rx<int> _lightIntesityValue = bc.lightIntensityValue.value.obs;
-    Rx<int> _lightIntesityValuePerPercent =
-        (bc.lightIntensityValue.value * 100 / 4095).round().obs;
-
     tc.onReady();
 
     return GetBuilder<BluetoothController>(
@@ -161,10 +158,10 @@ class SensorPage extends StatelessWidget {
                                         onChanged: (value) => {
                                           _value.value = value.toInt(),
                                         },
-                                        onChangeEnd: (double value) async {
-                                          await bc.changedValue(
+                                        onChangeEnd: (double value) async => {
+                                          await bc.changeValue(
                                               TypeOfValue.distance,
-                                              value.toInt());
+                                              value.toInt())
                                         },
                                         label: '${bc.distanceValue.value}',
                                         min: 10.0,
@@ -199,7 +196,7 @@ class SensorPage extends StatelessWidget {
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)),
                             Obx(() => Text(
-                                "${_lightIntesityValuePerPercent.value} %",
+                                "${(_lightIntesityValue.value * 100 / 4095).round()} %",
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)))
                           ],
@@ -224,7 +221,7 @@ class SensorPage extends StatelessWidget {
                                   _lightIntesityValue.value = value.toInt();
                                 },
                                 onChangeEnd: (value) async {
-                                  await bc.changedValue(
+                                  await bc.changeValue(
                                       TypeOfValue.lightIntesity, value.toInt());
                                 },
                                 appearance: CircularSliderAppearance(

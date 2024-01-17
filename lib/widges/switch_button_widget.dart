@@ -65,6 +65,7 @@ class SwitchButtonWidget extends StatelessWidget {
                   onPressed: () => {
                     turnOnOff == 0 ? turnOnOff = 1 : turnOnOff = 0,
                     btnc.changeColor(turnOnOff, typoOfButton),
+                    bc.changeValue(typeOfValue, turnOnOff)
                   },
                   icon: Icon(icon),
                   color: Color(typoOfButton == TypeOfButton.ledSignalization

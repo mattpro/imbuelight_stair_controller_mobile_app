@@ -120,13 +120,15 @@ class BluetoothController extends GetxController {
             isEnableLightIntensity.value = sub[6];
             isEnableLedSignalization.value = sub[7];
             reciveValueList = [
-              isEnableDistance.value,
-              isEnableLightIntensity.value,
+              sub[5],
+              sub[6],
+              sub[7],
               sub[8],
               sub[9],
               sub[10],
               sub[11],
             ];
+            print(reciveValueList);
           });
 
           device.connectionState.listen((BluetoothConnectionState state) {
@@ -169,9 +171,7 @@ class BluetoothController extends GetxController {
   //   await device.disconnect();
   // }
 
-  //TODO: Add a recive value
-
-  changedValue(TypeOfValue typeOfValue, int value) async {
+  changeValue(TypeOfValue typeOfValue, int value) async {
     Uint8List _convertToUint8 = Uint8List.fromList([value >> 8, value]);
     List<int> _sendList = reciveValueList;
     switch (typeOfValue) {
@@ -182,19 +182,21 @@ class BluetoothController extends GetxController {
         _sendList[1] = value;
         break;
       case TypeOfValue.enableLedSignalization:
-        _sendList[1] = value;
+        _sendList[2] = value;
         break;
       case TypeOfValue.distance:
-        _sendList[2] = _convertToUint8[0];
-        _sendList[3] = _convertToUint8[1];
+        _sendList[3] = _convertToUint8[0];
+        _sendList[4] = _convertToUint8[1];
+        print("CHANGE");
         break;
       case TypeOfValue.lightIntesity:
-        _sendList[4] = _convertToUint8[0];
-        _sendList[5] = _convertToUint8[1];
+        _sendList[5] = _convertToUint8[0];
+        _sendList[6] = _convertToUint8[1];
         break;
       default:
     }
     print(_sendList);
+
     await _characteristicToWrite.write(_sendList);
   }
 }
