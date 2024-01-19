@@ -15,12 +15,19 @@ enum AppColor {
 
 enum TypeOfDevice { sensor, controller }
 
-enum TypeOfValue {
+enum TypeOfSetValue {
   enableDistance,
   enablelightIntesity,
   enableLedSignalization,
   distance,
-  lightIntesity
+  lightIntensity
 }
 
-enum TypeOfButton { ledSignalization, distance, lightIntesity }
+enum TypeOfButton { ledSignalization, distance, lightIntensity }
+
+enum TypeOfGetValue {
+  distance,
+  lightIntensity,
+  thresholdDistanse,
+  thresholdlightIntensity
+}

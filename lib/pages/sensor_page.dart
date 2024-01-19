@@ -69,7 +69,7 @@ class SensorPage extends StatelessWidget {
                           typoOfButton: TypeOfButton.distance,
                         ),
                         SwitchButtonWidget(
-                          typoOfButton: TypeOfButton.lightIntesity,
+                          typoOfButton: TypeOfButton.lightIntensity,
                         ),
                       ],
                     ),
@@ -160,7 +160,7 @@ class SensorPage extends StatelessWidget {
                                         },
                                         onChangeEnd: (double value) async => {
                                           await bc.changeValue(
-                                              TypeOfValue.distance,
+                                              TypeOfSetValue.distance,
                                               value.toInt())
                                         },
                                         label: '${bc.distanceValue.value}',
@@ -222,13 +222,14 @@ class SensorPage extends StatelessWidget {
                                 },
                                 onChangeEnd: (value) async {
                                   await bc.changeValue(
-                                      TypeOfValue.lightIntesity, value.toInt());
+                                      TypeOfSetValue.lightIntensity,
+                                      value.toInt());
                                 },
                                 appearance: CircularSliderAppearance(
                                     customWidths: CustomSliderWidths(
-                                        handlerSize: 16,
-                                        trackWidth: 10,
-                                        progressBarWidth: 10),
+                                        handlerSize: 20,
+                                        trackWidth: 16,
+                                        progressBarWidth: 18),
                                     infoProperties: InfoProperties(
                                         mainLabelStyle:
                                             TextStyle(fontSize: 0))),

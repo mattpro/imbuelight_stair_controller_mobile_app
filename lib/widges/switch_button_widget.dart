@@ -17,7 +17,7 @@ class SwitchButtonWidget extends StatelessWidget {
 
   late int turnOnOff;
 
-  late TypeOfValue typeOfValue;
+  late TypeOfSetValue typeOfValue;
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +28,19 @@ class SwitchButtonWidget extends StatelessWidget {
         icon = Icons.lightbulb;
         info = 'Sygnalizacja\nLed';
         turnOnOff = bc.isEnableLedSignalization.value;
-        typeOfValue = TypeOfValue.enableLedSignalization;
+        typeOfValue = TypeOfSetValue.enableLedSignalization;
         break;
       case TypeOfButton.distance:
         icon = Icons.toggle_off_rounded;
         info = 'Mierzenie\ndystansu';
         turnOnOff = bc.isEnableDistance.value;
-        typeOfValue = TypeOfValue.enableDistance;
+        typeOfValue = TypeOfSetValue.enableDistance;
         break;
-      case TypeOfButton.lightIntesity:
+      case TypeOfButton.lightIntensity:
         icon = Icons.light_mode_outlined;
         info = 'Natężenie\nświatła';
         turnOnOff = bc.isEnableLightIntensity.value;
-        typeOfValue = TypeOfValue.enablelightIntesity;
+        typeOfValue = TypeOfSetValue.enablelightIntesity;
       default:
         icon = Icons.light_mode_outlined;
     }

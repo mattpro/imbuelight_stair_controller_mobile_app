@@ -12,7 +12,7 @@ class FadeController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    const duration = Duration(seconds: 3);
+    const duration = Duration(seconds: 2);
     _animationController.value = AnimationController(
       vsync: this,
       duration: duration,
@@ -25,9 +25,9 @@ class FadeController extends GetxController
     _animationController.value?.forward();
   }
 
-  @override
-  void onClose() {
-    _animationController.value?.dispose();
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   _animationController.value?.dispose();
+  //   super.onClose();
+  // }
 }

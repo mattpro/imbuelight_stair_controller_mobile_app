@@ -106,16 +106,14 @@ class BluetoothController extends GetxController {
 
             sub.value = Uint8List.fromList(value);
 
-            currentDistanceValue.value = sub[1] * 256 + sub[2];
+            currentDistanceValue.value =
+                convertValueTo16Int(TypeOfGetValue.distance, value);
             currentlightIntensityValue.value =
-                sub[3] > 250 ? 0 : sub[3] * 256 + sub[4];
-            distanceValue.value = sub[8] * 256 + sub[9];
-
-            // int operator = 258;
-            // Uint8List list = Uint8List.fromList([operator >> 8, operator]);
-            // print(list[1]);
-
-            lightIntensityValue.value = sub[10] * 256 + sub[11];
+                convertValueTo16Int(TypeOfGetValue.lightIntensity, value);
+            distanceValue.value =
+                convertValueTo16Int(TypeOfGetValue.thresholdDistanse, value);
+            lightIntensityValue.value = convertValueTo16Int(
+                TypeOfGetValue.thresholdlightIntensity, value);
             isEnableDistance.value = sub[5];
             isEnableLightIntensity.value = sub[6];
             isEnableLedSignalization.value = sub[7];
@@ -128,7 +126,6 @@ class BluetoothController extends GetxController {
               sub[10],
               sub[11],
             ];
-            print(reciveValueList);
           });
 
           device.connectionState.listen((BluetoothConnectionState state) {
@@ -171,32 +168,66 @@ class BluetoothController extends GetxController {
   //   await device.disconnect();
   // }
 
-  changeValue(TypeOfValue typeOfValue, int value) async {
+  changeValue(TypeOfSetValue typeOfValue, int value) async {
     Uint8List _convertToUint8 = Uint8List.fromList([value >> 8, value]);
     List<int> _sendList = reciveValueList;
     switch (typeOfValue) {
-      case TypeOfValue.enableDistance:
+      case TypeOfSetValue.enableDistance:
         _sendList[0] = value;
         break;
-      case TypeOfValue.enablelightIntesity:
+      case TypeOfSetValue.enablelightIntesity:
         _sendList[1] = value;
         break;
-      case TypeOfValue.enableLedSignalization:
+      case TypeOfSetValue.enableLedSignalization:
         _sendList[2] = value;
         break;
-      case TypeOfValue.distance:
+      case TypeOfSetValue.distance:
         _sendList[3] = _convertToUint8[0];
         _sendList[4] = _convertToUint8[1];
-        print("CHANGE");
         break;
-      case TypeOfValue.lightIntesity:
+      case TypeOfSetValue.lightIntensity:
         _sendList[5] = _convertToUint8[0];
         _sendList[6] = _convertToUint8[1];
         break;
       default:
     }
-    print(_sendList);
 
     await _characteristicToWrite.write(_sendList);
+  }
+
+  List<String> toHex(List<int> value) {
+    List<String> hexList = [];
+
+    for (int i = 0; i < value.length; i++) {
+      hexList.add(value[i].toRadixString(16));
+    }
+    return hexList;
+  }
+
+  int convertValueTo16Int(TypeOfGetValue typeofValue, List<int> value) {
+    final List<int> _list;
+    switch (typeofValue) {
+      case TypeOfGetValue.distance:
+        _list = [value[2], value[1]];
+        break;
+      case TypeOfGetValue.lightIntensity:
+        _list = [value[4], value[3]];
+        break;
+      case TypeOfGetValue.thresholdDistanse:
+        _list = [value[9], value[8]];
+        break;
+      case TypeOfGetValue.thresholdlightIntensity:
+        _list = [value[11], value[10]];
+        break;
+      default:
+        _list = [value[2], value[1]];
+    }
+    ByteData byteData = ByteData.sublistView(
+      Uint8List.fromList(_list),
+    );
+
+    int valueInInt16 = byteData.getInt16(0, Endian.little);
+
+    return valueInInt16;
   }
 }

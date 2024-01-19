@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:get/get.dart';
 import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_controller.dart';
-import 'package:imbuelight_stair_controller_mobile_app/controllers/fade_controller.dart';
-
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
 import 'package:imbuelight_stair_controller_mobile_app/widges/device_card.dart';
@@ -23,7 +20,7 @@ class ImbueList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FadeController fc = Get.put(FadeController());
+    // final FadeController fc = Get.put(FadeController());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -53,9 +50,7 @@ class ImbueList extends StatelessWidget {
                         itemBuilder: (context, index) {
                           imbue.sort((a, b) => b.rssi.compareTo(a.rssi));
                           final data = imbue[index];
-                          return Opacity(
-                              opacity: fc.opacityAnimation!.value,
-                              child: DeviceCard(data: data, bc: bc));
+                          return DeviceCard(data: data, bc: bc);
                         }),
                   )
                 : Text(
