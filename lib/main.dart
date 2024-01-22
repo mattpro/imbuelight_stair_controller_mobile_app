@@ -3,9 +3,11 @@ import 'dart:io';
 // import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:imbuelight_stair_controller_mobile_app/pages/home_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -36,16 +38,17 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('pl'), // Polish
+        Locale('en'), // English
+      ],
+      home: HomePage(),
     );
-  }
-}
-
-class DisconnectApp extends StatelessWidget {
-  const DisconnectApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

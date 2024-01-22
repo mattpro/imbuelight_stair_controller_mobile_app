@@ -1,6 +1,6 @@
-# imbuelight_stair_controller_mobile_app
+# Imbuelight Stair Controller Mobile App
 
-A new Flutter project.
+This Flutter app control the lighting on stairs.
 
 ## Getting Started
 

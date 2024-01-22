@@ -1,0 +1,13 @@
+{
+    "searchDevice" : "Search for a device",
+    "bluetoothTurnedOff" : "Bluetooth turned off",
+    "devicesWereNotDetected" : "Devices were not detected",
+    "sensors" : "Sensors",
+    "controllers" : "Controllers",
+    "sensorsNotFound" : "Sensors not found",
+    "controllersNotFound" : "Controllers not found",
+    "distance" : "Distance",
+    "sensorReading" : "Sensor reading: ",
+    "moreThan200" : "more than 200 cm",
+    "stairWidth" : "Stair width : "
+}
