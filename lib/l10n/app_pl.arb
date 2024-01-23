@@ -1,6 +1,7 @@
 {
     "searchDevice" : "Szukaj urządzenia",
     "bluetoothTurnedOff" : "Bluetooth wyłączony",
+    "devicesWereNotDetected" : "Nie wykryto urządzeń",
     "sensors" : "Czujniki",
     "controllers" : "Sterowniki",
     "sensorsNotFound" : "Nie wykryto czujników",
@@ -8,5 +9,8 @@
     "distance" : "Dystans",
     "sensorReading" : "Odczyt z czujnika: ",
     "moreThan200" : "więcej niż 200 cm",
-    "stairWidth" : "Szerokość schodów : "
+    "stairWidth" : "Szerokość schodów : ",
+     "lightIntensity" : "Natężenie światła",
+     "setpoint" : "Wartość zadana: "
+
 }

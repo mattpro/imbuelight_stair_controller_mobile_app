@@ -9,5 +9,7 @@
     "distance" : "Distance",
     "sensorReading" : "Sensor reading: ",
     "moreThan200" : "more than 200 cm",
-    "stairWidth" : "Stair width : "
+    "stairWidth" : "Stair width : ",
+    "lightIntensity" : "Light intensity",
+    "setpoint" : "Setpoint: "
 }

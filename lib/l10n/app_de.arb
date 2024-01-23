@@ -1,0 +1,15 @@
+{
+"searchDevice" : "Gerät suchen",
+"bluetoothTurnedOff" : "Bluetooth deaktiviert",
+"devicesWereNotDetected" : "Geräte wurden nicht erkannt",
+"sensors" : "Sensoren",
+"controllers" : "Steuergeräte",
+"sensorsNotFound" : "Sensoren nicht gefunden",
+"controllersNotFound" : "Steuergeräte nicht gefunden",
+"distance" : "Entfernung",
+"sensorReading" : "Sensorabfrage: ",
+"moreThan200" : "mehr als 200 cm",
+"stairWidth" : "Treppenbreite: ",
+"lightIntensity" : "Lichtintensität",
+"setpoint" : "Sollwert: "
+}
