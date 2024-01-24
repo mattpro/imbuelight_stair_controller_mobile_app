@@ -8,6 +8,7 @@ import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/widges/devices_list.dart';
 import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -78,5 +79,6 @@ class HomePage extends StatelessWidget {
 }
 
 Future<void> _onFresh(BluetoothController controller) {
+  HapticFeedback.mediumImpact();
   return controller.scanDevices();
 }
