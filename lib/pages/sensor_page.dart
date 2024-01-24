@@ -57,7 +57,7 @@ class SensorPage extends StatelessWidget {
                           () => Text(
                             "${bc.nameOfDevice}",
                             style:
-                                fontStyle(Weight.bold, 25, Colors.white, true),
+                                fontStyle(Weight.bold, 23, Colors.white, true),
                           ),
                         )),
                     Row(
