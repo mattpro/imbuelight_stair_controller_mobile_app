@@ -47,6 +47,11 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('pl'), // Polish
         Locale('en'), // English
+        Locale('de'), // German
+        Locale('cs'), // Czech
+        Locale('sk'), // Slovak
+        Locale('fr'), // Franch
+        Locale('it'), // Italian
       ],
       home: HomePage(),
     );

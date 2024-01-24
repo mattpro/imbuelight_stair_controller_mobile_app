@@ -7,6 +7,7 @@ import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
 import 'package:imbuelight_stair_controller_mobile_app/widges/switch_button_widget.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SensorPage extends StatelessWidget {
   const SensorPage({super.key});
@@ -56,7 +57,7 @@ class SensorPage extends StatelessWidget {
                           () => Text(
                             "${bc.nameOfDevice}",
                             style:
-                                fontStyle(Weight.bold, 25, Colors.white, true),
+                                fontStyle(Weight.bold, 23, Colors.white, true),
                           ),
                         )),
                     Row(
@@ -102,7 +103,7 @@ class SensorPage extends StatelessWidget {
                       height: 40,
                     ),
                     Text(
-                      'Dystans',
+                      AppLocalizations.of(context)!.distance,
                       style: fontStyle(Weight.bold, 22, Colors.white, true),
                     ),
                     SizedBox(height: 15),
@@ -110,13 +111,13 @@ class SensorPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Odczyt z czujnika: ",
+                          Text(AppLocalizations.of(context)!.sensorReading,
                               style: fontStyle(
                                   Weight.bold, 16, Colors.white, true)),
                           Obx(() => Text(
                               tc.currentSensorValue <= 200
                                   ? '${tc.currentSensorValue}' + " cm"
-                                  : "więcej niż 200 cm",
+                                  : AppLocalizations.of(context)!.moreThan200,
                               style: fontStyle(
                                   Weight.bold, 16, Colors.white, true))),
                         ],
@@ -141,7 +142,7 @@ class SensorPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Szerokość schodów : ',
+                                      AppLocalizations.of(context)!.stairWidth,
                                       style: fontStyle(
                                           Weight.bold, 22, Colors.white, true),
                                     ),
@@ -173,7 +174,7 @@ class SensorPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Natężenie światła',
+                      AppLocalizations.of(context)!.lightIntensity,
                       style: fontStyle(Weight.bold, 22, Colors.white, true),
                     ),
                     SizedBox(height: 15),
@@ -182,7 +183,7 @@ class SensorPage extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Text("Odczyt z czujnika: ",
+                            Text(AppLocalizations.of(context)!.sensorReading,
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)),
                             Obx(() => Text("${tc.currentIntensityValue} %",
@@ -192,7 +193,7 @@ class SensorPage extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            Text("Wartość zadana: ",
+                            Text(AppLocalizations.of(context)!.setpoint,
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)),
                             Obx(() => Text(

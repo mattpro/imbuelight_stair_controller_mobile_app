@@ -6,8 +6,13 @@
     "controllers" : "Controllers",
     "sensorsNotFound" : "Sensors not found",
     "controllersNotFound" : "Controllers not found",
+    "ledSignaling" : "LED\nsignaling",
+    "distanceMeasurement" : "Distance\nmeasurement",
+    "lightIntensityToLines" : "Light\nintensity",
     "distance" : "Distance",
     "sensorReading" : "Sensor reading: ",
     "moreThan200" : "more than 200 cm",
-    "stairWidth" : "Stair width : "
+    "stairWidth" : "Stair width : ",
+    "lightIntensity" : "Light intensity",
+    "setpoint" : "Setpoint: "
 }

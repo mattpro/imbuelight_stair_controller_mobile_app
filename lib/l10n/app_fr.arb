@@ -1,0 +1,18 @@
+{
+"searchDevice": "Rechercher un appareil",
+"bluetoothTurnedOff": "Bluetooth désactivé",
+"devicesWereNotDetected": "Aucun appareil détecté",
+"sensors": "Capteurs",
+"controllers": "Contrôleurs",
+"sensorsNotFound": "Capteurs non trouvés",
+"controllersNotFound": "Contrôleurs non trouvés",
+"ledSignaling" : "Signalisation\nLED",
+"distanceMeasurement" : "Mesure\nde distance",
+"lightIntensityToLines" : "Intensité\nlumineuse",
+"distance": "Distance",
+"sensorReading": "Lecture du capteur : ",
+"moreThan200": "plus de 200 cm",
+"stairWidth": "Largeur de l'escalier : ",
+"lightIntensity": "Intensité lumineuse",
+"setpoint": "Valeur consigne : "
+}

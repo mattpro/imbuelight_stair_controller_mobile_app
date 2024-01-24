@@ -1,0 +1,18 @@
+{
+    "searchDevice": "Hľadať zariadenie",
+"bluetoothTurnedOff": "Bluetooth vypnutý",
+"devicesWereNotDetected": "Zariadenia neboli zistené",
+"sensors": "Senzory",
+"controllers": "Ovládače",
+"sensorsNotFound": "Senzory sa nenašli",
+"controllersNotFound": "Ovládače sa nenašli",
+"ledSignaling" : "LED\nsignalizácia",
+"distanceMeasurement" : "Meranie vzdialenosti",
+"lightIntensityToLines" : "Intenzita\nsvetla",
+"distance": "Vzdialenosť",
+"sensorReading": "Čítanie senzora: ",
+"moreThan200": "viac ako 200 cm",
+"stairWidth": "Šírka schodiska : ",
+"lightIntensity": "Intenzita svetla",
+"setpoint": "Požadovaná hodnota: "
+}

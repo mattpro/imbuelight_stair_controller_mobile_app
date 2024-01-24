@@ -1,0 +1,18 @@
+{
+"searchDevice" : "Hledat zařízení",
+"bluetoothTurnedOff": "Bluetooth vypnutý",
+"devicesWereNotDetected" : "Zařízení nebyla detekována",
+"sensors" : "Senzory",
+"controllers" : "Ovladače",
+"sensorsNotFound" : "Senzory nenalezeny",
+"controllersNotFound" : "Ovladače nenalezeny",
+"ledSignaling" : "LED\nsignalizace",
+"distanceMeasurement" : " Měření\nvzdálenosti",
+"lightIntensityToLines" : "Natężení\nsvětla",
+"distance" : "Vzdálenost",
+"sensorReading" : "Čtení senzoru: ",
+"moreThan200" : "více než 200 cm",
+"stairWidth" : "Šířka schodů: ",
+"lightIntensity" : "Natężení světla",
+"setpoint" : "Požadovaná hodnota: "
+}

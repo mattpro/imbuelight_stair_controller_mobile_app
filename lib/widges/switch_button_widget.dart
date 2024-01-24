@@ -4,6 +4,7 @@ import 'package:imbuelight_stair_controller_mobile_app/controllers/button_contro
 import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_controller.dart';
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class SwitchButtonWidget extends StatelessWidget {
@@ -23,22 +24,23 @@ class SwitchButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final BluetoothController bc = Get.put(BluetoothController());
     final ButtonController btnc = Get.put(ButtonController());
+
     switch (typoOfButton) {
       case TypeOfButton.ledSignalization:
         icon = Icons.lightbulb;
-        info = 'Sygnalizacja\nLed';
+        info = AppLocalizations.of(context)!.ledSignaling;
         turnOnOff = bc.isEnableLedSignalization.value;
         typeOfValue = TypeOfSetValue.enableLedSignalization;
         break;
       case TypeOfButton.distance:
         icon = Icons.toggle_off_rounded;
-        info = 'Mierzenie\ndystansu';
+        info = AppLocalizations.of(context)!.distanceMeasurement;
         turnOnOff = bc.isEnableDistance.value;
         typeOfValue = TypeOfSetValue.enableDistance;
         break;
       case TypeOfButton.lightIntensity:
         icon = Icons.light_mode_outlined;
-        info = 'Natężenie\nświatła';
+        info = AppLocalizations.of(context)!.lightIntensityToLines;
         turnOnOff = bc.isEnableLightIntensity.value;
         typeOfValue = TypeOfSetValue.enablelightIntesity;
       default:

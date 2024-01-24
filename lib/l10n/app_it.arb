@@ -1,0 +1,18 @@
+{
+    "searchDevice": "Cerca dispositivo",
+"bluetoothTurnedOff": "Bluetooth disattivato",
+"devicesWereNotDetected": "Dispositivi non rilevati",
+"sensors": "Sensori",
+"controllers": "Controllori",
+"sensorsNotFound": "Sensori non trovati",
+"controllersNotFound": "Controllori non trovati",
+"ledSignaling" : "Segnalazione\na LED",
+"distanceMeasurement" : "Misurazione\ndella distanza",
+"lightIntensityToLines" : "Intensità\nluminosa",
+"distance": "Distanza",
+"sensorReading": "Lettura del sensore: ",
+"moreThan200": "più di 200 cm",
+"stairWidth": "Larghezza scala: ",
+"lightIntensity": "Intensità luminosa",
+"setpoint": "Valore di riferimento: "
+}

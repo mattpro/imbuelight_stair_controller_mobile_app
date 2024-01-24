@@ -4,6 +4,7 @@ import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_con
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
 import 'package:imbuelight_stair_controller_mobile_app/widges/device_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ImbueList extends StatelessWidget {
   final List<ScanResult> imbue;
@@ -55,8 +56,8 @@ class ImbueList extends StatelessWidget {
                   )
                 : Text(
                     typeOfDevice == TypeOfDevice.sensor
-                        ? 'Nie wykryto czujników'
-                        : 'Nie wykryto kontrolerów',
+                        ? AppLocalizations.of(context)!.sensorsNotFound
+                        : AppLocalizations.of(context)!.controllersNotFound,
                     style: fontStyle(Weight.bold, 15, Colors.white, true),
                   ),
             const SizedBox(height: 15),

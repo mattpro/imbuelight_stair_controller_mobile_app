@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_controller.dart';
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/widges/imbue_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../methods/font_style.dart';
 
@@ -27,7 +28,7 @@ class DevicesList extends StatelessWidget {
             return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  deviceTitle(TypeOfDevice.sensor),
+                  deviceTitle(TypeOfDevice.sensor, context),
                   const SizedBox(height: 15),
                   ImbueList(
                       imbue: imbueSensors,
@@ -37,7 +38,7 @@ class DevicesList extends StatelessWidget {
                   const SizedBox(
                     height: 40,
                   ),
-                  deviceTitle(TypeOfDevice.controller),
+                  deviceTitle(TypeOfDevice.controller, context),
                   const SizedBox(height: 15),
                   ImbueList(
                     imbue: imbueControllers,
@@ -50,17 +51,19 @@ class DevicesList extends StatelessWidget {
                   ),
                 ]);
           } else {
-            return const Text("No devices found");
+            return Text(AppLocalizations.of(context)!.devicesWereNotDetected);
           }
         });
   }
 }
 
-Row deviceTitle(TypeOfDevice typeofDevice) {
+Row deviceTitle(TypeOfDevice typeofDevice, context) {
   return Row(children: [
     const SizedBox(width: 20),
     Text(
-      typeofDevice == TypeOfDevice.sensor ? 'Czujniki' : 'Kontrolery',
+      typeofDevice == TypeOfDevice.sensor
+          ? AppLocalizations.of(context)!.sensors
+          : AppLocalizations.of(context)!.controllers,
       style: fontStyle(Weight.bold, 25, Colors.white, true),
     ),
   ]);
