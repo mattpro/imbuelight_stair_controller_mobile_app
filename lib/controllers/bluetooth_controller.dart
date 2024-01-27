@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
+import 'package:imbuelight_stair_controller_mobile_app/pages/controller_page.dart';
 import 'package:imbuelight_stair_controller_mobile_app/pages/sensor_page.dart';
 
 class BluetoothController extends GetxController {
@@ -145,12 +146,16 @@ class BluetoothController extends GetxController {
     // distanceValue.refresh();
   }
 
-  connectionWithDevice(BluetoothDevice device, state) async {
+  connectionWithDevice(
+      BluetoothDevice device, state, TypeOfDevice typeOfDevice) async {
     await device.connect();
     await readDeviceValue(device);
     await readDeviceName(device);
     currentDevice = device;
-    Get.to(() => SensorPage(),
+    Get.to(
+        () => typeOfDevice == TypeOfDevice.sensor
+            ? SensorPage()
+            : ControllerPage(),
         transition: Transition.rightToLeftWithFade,
         duration: const Duration(milliseconds: 500));
     // return [sub, name];

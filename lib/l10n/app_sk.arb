@@ -11,8 +11,11 @@
 "lightIntensityToLines" : "Intenzita\nsvetla",
 "distance": "Vzdialenosť",
 "sensorReading": "Čítanie senzora: ",
+"sensorReadingToTwoLines": "Čítanie senzora: ",
 "moreThan200": "viac ako 200 cm",
 "stairWidth": "Šírka schodiska : ",
 "lightIntensity": "Intenzita svetla",
-"setpoint": "Požadovaná hodnota: "
+"setpoint": "Požadovaná hodnota: ",
+"setpointToTwoLines": "Požadovaná hodnota: ",
+"sizeSwitchButton" : "14"
 }

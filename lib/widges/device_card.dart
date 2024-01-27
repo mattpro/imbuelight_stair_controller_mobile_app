@@ -9,10 +9,12 @@ class DeviceCard extends StatelessWidget {
     super.key,
     required this.data,
     required this.bc,
+    required this.typeOfDevice,
   });
 
   final ScanResult data;
   final BluetoothController bc;
+  final TypeOfDevice typeOfDevice;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class DeviceCard extends StatelessWidget {
           // Text(data.rssi.toString()),
           onTap: () async => {
                 await bc.connectionWithDevice(
-                    data.device, data.device.connectionState),
+                    data.device, data.device.connectionState, typeOfDevice),
               },
           tileColor: Color(AppColor.third.value)),
     );

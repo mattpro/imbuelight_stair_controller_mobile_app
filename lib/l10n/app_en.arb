@@ -11,8 +11,11 @@
     "lightIntensityToLines" : "Light\nintensity",
     "distance" : "Distance",
     "sensorReading" : "Sensor reading: ",
+    "sensorReadingToTwoLines": "Sensor reading: ",
     "moreThan200" : "more than 200 cm",
     "stairWidth" : "Stair width : ",
     "lightIntensity" : "Light intensity",
-    "setpoint" : "Setpoint: "
+    "setpoint" : "Setpoint: ",
+    "setpointToTwoLines": "Setpoint: ",
+    "sizeSwitchButton" : "14"
 }

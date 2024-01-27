@@ -11,8 +11,11 @@
 "lightIntensityToLines" : "Intensità\nluminosa",
 "distance": "Distanza",
 "sensorReading": "Lettura del sensore: ",
+"sensorReadingToTwoLines": "Lettura\ndel sensore: ",
 "moreThan200": "più di 200 cm",
 "stairWidth": "Larghezza scala: ",
 "lightIntensity": "Intensità luminosa",
-"setpoint": "Valore di riferimento: "
+"setpoint": "Valore di riferimento: ",
+"setpointToTwoLines": "Valore\ndi riferimento: ",
+"sizeSwitchButton" : "14"
 }

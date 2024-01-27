@@ -54,7 +54,11 @@ class SwitchButtonWidget extends StatelessWidget {
         Text(
           info,
           textAlign: TextAlign.center,
-          style: fontStyle(Weight.bold, 14, Colors.white, true),
+          style: fontStyle(
+              Weight.bold,
+              double.parse(AppLocalizations.of(context)!.sizeSwitchButton),
+              Colors.white,
+              true),
         ),
         SizedBox(height: 10),
         Container(

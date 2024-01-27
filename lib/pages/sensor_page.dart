@@ -40,8 +40,8 @@ class SensorPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(50)),
                           child: IconButton(
                             onPressed: () async => {
-                              await bc
-                                  .disconnectionWithDevice(bc.currentDevice),
+                              await controller.disconnectionWithDevice(
+                                  controller.currentDevice),
                               Get.back(),
                             },
                             icon: Icon(Icons.arrow_back),
@@ -55,7 +55,7 @@ class SensorPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 30),
                         child: Obx(
                           () => Text(
-                            "${bc.nameOfDevice}",
+                            "${controller.nameOfDevice}",
                             style:
                                 fontStyle(Weight.bold, 23, Colors.white, true),
                           ),
@@ -139,7 +139,7 @@ class SensorPage extends StatelessWidget {
                               children: [
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
                                       AppLocalizations.of(context)!.stairWidth,
@@ -160,11 +160,12 @@ class SensorPage extends StatelessWidget {
                                           _value.value = value.toInt(),
                                         },
                                         onChangeEnd: (double value) async => {
-                                          await bc.changeValue(
+                                          await controller.changeValue(
                                               TypeOfSetValue.distance,
                                               value.toInt())
                                         },
-                                        label: '${bc.distanceValue.value}',
+                                        label:
+                                            '${controller.distanceValue.value}',
                                         min: 10.0,
                                         max: 200.0,
                                       ),
@@ -183,7 +184,10 @@ class SensorPage extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Text(AppLocalizations.of(context)!.sensorReading,
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .sensorReadingToTwoLines,
+                                textAlign: TextAlign.center,
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)),
                             Obx(() => Text("${tc.currentIntensityValue} %",
@@ -193,7 +197,10 @@ class SensorPage extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            Text(AppLocalizations.of(context)!.setpoint,
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .setpointToTwoLines,
+                                textAlign: TextAlign.center,
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)),
                             Obx(() => Text(
@@ -222,7 +229,7 @@ class SensorPage extends StatelessWidget {
                                   _lightIntesityValue.value = value.toInt();
                                 },
                                 onChangeEnd: (value) async {
-                                  await bc.changeValue(
+                                  await controller.changeValue(
                                       TypeOfSetValue.lightIntensity,
                                       value.toInt());
                                 },

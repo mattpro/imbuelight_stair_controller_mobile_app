@@ -11,9 +11,12 @@
     "lightIntensityToLines" : "Natężenie\nświatła",
     "distance" : "Dystans",
     "sensorReading" : "Odczyt z czujnika: ",
+    "sensorReadingToTwoLines": "Odczyt z czujnika: ",
     "moreThan200" : "więcej niż 200 cm",
     "stairWidth" : "Szerokość schodów : ",
      "lightIntensity" : "Natężenie światła",
-     "setpoint" : "Wartość zadana: "
+     "setpoint" : "Wartość zadana: ",
+     "setpointToTwoLines": "Wartość zadana: ",
+     "sizeSwitchButton" : "14"
 
 }

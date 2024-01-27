@@ -11,8 +11,11 @@
 "lightIntensityToLines" : "Lichtintensität",
 "distance" : "Entfernung",
 "sensorReading" : "Sensorabfrage: ",
+"sensorReadingToTwoLines": "Sensorabfrage: ",
 "moreThan200" : "mehr als 200 cm",
 "stairWidth" : "Treppenbreite: ",
 "lightIntensity" : "Lichtintensität",
-"setpoint" : "Sollwert: "
+"setpoint" : "Sollwert: ",
+"setpointToTwoLines": "Požadovaná hodnota: ",
+"sizeSwitchButton" : "10.5"
 }

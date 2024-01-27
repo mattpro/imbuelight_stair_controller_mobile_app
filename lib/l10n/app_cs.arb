@@ -11,8 +11,11 @@
 "lightIntensityToLines" : "Natężení\nsvětla",
 "distance" : "Vzdálenost",
 "sensorReading" : "Čtení senzoru: ",
+"sensorReadingToTwoLines": "Čtení senzoru: ",
 "moreThan200" : "více než 200 cm",
 "stairWidth" : "Šířka schodů: ",
 "lightIntensity" : "Natężení světla",
-"setpoint" : "Požadovaná hodnota: "
+"setpoint" : "Požadovaná hodnota: ",
+"setpointToTwoLines": "Požadovaná hodnota: ",
+"sizeSwitchButton" : "14"
 }

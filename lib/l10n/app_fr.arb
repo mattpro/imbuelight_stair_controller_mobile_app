@@ -11,8 +11,11 @@
 "lightIntensityToLines" : "Intensité\nlumineuse",
 "distance": "Distance",
 "sensorReading": "Lecture du capteur : ",
+"sensorReadingToTwoLines": "Lecture du capteur : ",
 "moreThan200": "plus de 200 cm",
-"stairWidth": "Largeur de l'escalier : ",
+"stairWidth": "Largeur\nde l'escalier : ",
 "lightIntensity": "Intensité lumineuse",
-"setpoint": "Valeur consigne : "
+"setpoint": "Valeur consigne : ",
+"setpointToTwoLines": "Valeur consigne : ",
+"sizeSwitchButton" : "14"
 }

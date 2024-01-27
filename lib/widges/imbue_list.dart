@@ -51,7 +51,11 @@ class ImbueList extends StatelessWidget {
                         itemBuilder: (context, index) {
                           imbue.sort((a, b) => b.rssi.compareTo(a.rssi));
                           final data = imbue[index];
-                          return DeviceCard(data: data, bc: bc);
+                          return DeviceCard(
+                            data: data,
+                            bc: bc,
+                            typeOfDevice: typeOfDevice,
+                          );
                         }),
                   )
                 : Text(
