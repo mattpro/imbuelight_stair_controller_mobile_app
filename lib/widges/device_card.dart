@@ -43,7 +43,9 @@ class DeviceCard extends StatelessWidget {
                 await bc.connectionWithDevice(
                     data.device, data.device.connectionState, typeOfDevice),
               },
-          tileColor: Color(AppColor.third.value)),
+          tileColor: typeOfDevice == TypeOfDevice.sensor
+              ? Color(AppColor.third.value)
+              : Color(AppColor.second.value)),
     );
   }
 }

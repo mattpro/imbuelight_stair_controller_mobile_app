@@ -7,7 +7,7 @@
 "sensorsNotFound": "Senzory sa nenašli",
 "controllersNotFound": "Ovládače sa nenašli",
 "ledSignaling" : "LED\nsignalizácia",
-"distanceMeasurement" : "Meranie vzdialenosti",
+"distanceMeasurement" : "Meranie\nvzdialenosti",
 "lightIntensityToLines" : "Intenzita\nsvetla",
 "distance": "Vzdialenosť",
 "sensorReading": "Čítanie senzora: ",

@@ -104,8 +104,9 @@ class BluetoothController extends GetxController {
           await c.setNotifyValue(true);
           final subscription = c.onValueReceived.listen((value) {
             // const Duration(milliseconds: 1000);
-
+            // print(value.toString());
             sub.value = Uint8List.fromList(value);
+            // print("List ${sub}");
 
             currentDistanceValue.value =
                 convertValueTo16Int(TypeOfGetValue.distance, value);
