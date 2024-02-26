@@ -9,7 +9,7 @@ TextStyle fontStyle(Weight weight, double size, Color color, bool isShadow) {
           fontWeight: FontWeight.w400,
           fontSize: size,
           color: color,
-          shadows: [
+          shadows: const [
             Shadow(
               color: Colors.black, // Choose the color of the shadow
               blurRadius: 4.0, // Adjust the blur radius for the shadow effect
@@ -31,7 +31,7 @@ TextStyle fontStyle(Weight weight, double size, Color color, bool isShadow) {
           fontWeight: FontWeight.w800,
           fontSize: size,
           color: color,
-          shadows: [
+          shadows: const [
             Shadow(
               color: Colors.black, // Choose the color of the shadow
               blurRadius: 4.0, // Adjust the blur radius for the shadow effect
@@ -52,7 +52,7 @@ TextStyle fontStyle(Weight weight, double size, Color color, bool isShadow) {
           fontFamily: 'Comfortaa',
           fontSize: size,
           color: color,
-          shadows: [
+          shadows: const [
             Shadow(
               color: Colors.black, // Choose the color of the shadow
               blurRadius: 4.0, // Adjust the blur radius for the shadow effect

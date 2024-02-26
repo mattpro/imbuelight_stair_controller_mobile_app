@@ -22,10 +22,10 @@ class ControllerPage extends StatelessWidget {
               child: Column(children: [
                 Row(
                   children: [
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Container(
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(47, 0, 255, 255),
+                          color: const Color.fromARGB(47, 0, 255, 255),
                           borderRadius: BorderRadius.circular(50)),
                       child: IconButton(
                         onPressed: () async => {
@@ -33,7 +33,7 @@ class ControllerPage extends StatelessWidget {
                               controller.currentDevice),
                           Get.back(),
                         },
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         color: Colors.white,
                         iconSize: 30.0,
                       ),
@@ -41,7 +41,7 @@ class ControllerPage extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30),
+                    padding: const EdgeInsets.symmetric(vertical: 30),
                     child: Obx(
                       () => Text(
                         "${controller.nameOfDevice}",
@@ -54,7 +54,11 @@ class ControllerPage extends StatelessWidget {
                     )),
                 Obx(() => Text(tc.subscription.toString(),
                     style: fontStyle(Weight.bold, 21, Colors.white, true))),
-                //     style: fontStyle(Weight.bold, 12, Colors.white, true)))
+                //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
+                ElevatedButton(
+                    onPressed: () => controller.sendValueToSensor(),
+                    child: Text('Send',
+                        style: fontStyle(Weight.bold, 41, Colors.white, true)))
               ]),
             )),
           );

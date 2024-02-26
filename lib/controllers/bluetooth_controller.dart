@@ -8,7 +8,6 @@ import 'package:imbuelight_stair_controller_mobile_app/pages/controller_page.dar
 import 'package:imbuelight_stair_controller_mobile_app/pages/sensor_page.dart';
 
 class BluetoothController extends GetxController {
-  AsciiCodec ascii = AsciiCodec();
   RxString nameOfDevice = ''.obs;
   RxList<int> sub = [1].obs;
   Rx<int> distanceValue = 0.obs;
@@ -155,7 +154,7 @@ class BluetoothController extends GetxController {
     currentDevice = device;
     Get.to(
         () => typeOfDevice == TypeOfDevice.sensor
-            ? SensorPage()
+            ? const SensorPage()
             : ControllerPage(),
         transition: Transition.rightToLeftWithFade,
         duration: const Duration(milliseconds: 500));
@@ -175,30 +174,30 @@ class BluetoothController extends GetxController {
   // }
 
   changeValue(TypeOfSetValue typeOfValue, int value) async {
-    Uint8List _convertToUint8 = Uint8List.fromList([value >> 8, value]);
-    List<int> _sendList = reciveValueList;
+    Uint8List convertToUint8 = Uint8List.fromList([value >> 8, value]);
+    List<int> sendList = reciveValueList;
     switch (typeOfValue) {
       case TypeOfSetValue.enableDistance:
-        _sendList[0] = value;
+        sendList[0] = value;
         break;
       case TypeOfSetValue.enablelightIntesity:
-        _sendList[1] = value;
+        sendList[1] = value;
         break;
       case TypeOfSetValue.enableLedSignalization:
-        _sendList[2] = value;
+        sendList[2] = value;
         break;
       case TypeOfSetValue.distance:
-        _sendList[3] = _convertToUint8[0];
-        _sendList[4] = _convertToUint8[1];
+        sendList[3] = convertToUint8[0];
+        sendList[4] = convertToUint8[1];
         break;
       case TypeOfSetValue.lightIntensity:
-        _sendList[5] = _convertToUint8[0];
-        _sendList[6] = _convertToUint8[1];
+        sendList[5] = convertToUint8[0];
+        sendList[6] = convertToUint8[1];
         break;
       default:
     }
 
-    await _characteristicToWrite.write(_sendList);
+    await _characteristicToWrite.write(sendList);
   }
 
   List<String> toHex(List<int> value) {
@@ -211,29 +210,35 @@ class BluetoothController extends GetxController {
   }
 
   int convertValueTo16Int(TypeOfGetValue typeofValue, List<int> value) {
-    final List<int> _list;
+    final List<int> list;
     switch (typeofValue) {
       case TypeOfGetValue.distance:
-        _list = [value[2], value[1]];
+        list = [value[2], value[1]];
         break;
       case TypeOfGetValue.lightIntensity:
-        _list = [value[4], value[3]];
+        list = [value[4], value[3]];
         break;
       case TypeOfGetValue.thresholdDistanse:
-        _list = [value[9], value[8]];
+        list = [value[9], value[8]];
         break;
       case TypeOfGetValue.thresholdlightIntensity:
-        _list = [value[11], value[10]];
+        list = [value[11], value[10]];
         break;
       default:
-        _list = [value[2], value[1]];
+        list = [value[2], value[1]];
     }
     ByteData byteData = ByteData.sublistView(
-      Uint8List.fromList(_list),
+      Uint8List.fromList(list),
     );
 
     int valueInInt16 = byteData.getInt16(0, Endian.little);
 
     return valueInInt16;
+  }
+
+  sendValueToSensor() async {
+    await _characteristicToWrite.write([0xDE, 0x01, 8]);
+
+    await _characteristicToWrite.write([0xAA, 0x02]);
   }
 }

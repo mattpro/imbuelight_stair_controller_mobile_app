@@ -60,10 +60,10 @@ class SwitchButtonWidget extends StatelessWidget {
               Colors.white,
               true),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-              color: Color.fromARGB(47, 0, 255, 255),
+              color: const Color.fromARGB(47, 0, 255, 255),
               borderRadius: BorderRadius.circular(50)),
           child: Padding(
             padding: const EdgeInsets.all(5.0),

@@ -16,8 +16,8 @@ class SensorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final BluetoothController bc = Get.put(BluetoothController());
     final TimerController tc = Get.put(TimerController());
-    Rx<int> _value = bc.distanceValue.value.obs;
-    Rx<int> _lightIntesityValue = bc.lightIntensityValue.value.obs;
+    Rx<int> distanceValue = bc.distanceValue.value.obs;
+    Rx<int> lightIntesityValue = bc.lightIntensityValue.value.obs;
     tc.onReady();
 
     return GetBuilder<BluetoothController>(
@@ -30,13 +30,13 @@ class SensorPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(padding: EdgeInsets.only(top: 10)),
+                    const Padding(padding: EdgeInsets.only(top: 10)),
                     Row(
                       children: [
-                        SizedBox(width: 12),
+                        const SizedBox(width: 12),
                         Container(
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(47, 0, 255, 255),
+                              color: const Color.fromARGB(47, 0, 255, 255),
                               borderRadius: BorderRadius.circular(50)),
                           child: IconButton(
                             onPressed: () async => {
@@ -44,7 +44,7 @@ class SensorPage extends StatelessWidget {
                                   controller.currentDevice),
                               Get.back(),
                             },
-                            icon: Icon(Icons.arrow_back),
+                            icon: const Icon(Icons.arrow_back),
                             color: Colors.white,
                             iconSize: 30.0,
                           ),
@@ -52,7 +52,7 @@ class SensorPage extends StatelessWidget {
                       ],
                     ),
                     Padding(
-                        padding: EdgeInsets.symmetric(vertical: 30),
+                        padding: const EdgeInsets.symmetric(vertical: 30),
                         child: Obx(
                           () => Text(
                             "${controller.nameOfDevice}",
@@ -74,7 +74,7 @@ class SensorPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 35),
+                    const SizedBox(height: 35),
 
                     // Obx(() => Text(tc.subscription.toString(),
                     //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
@@ -83,18 +83,18 @@ class SensorPage extends StatelessWidget {
                     Container(
                         height: 100,
                         width: 100,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Color.fromARGB(74, 0, 255, 255),
                             borderRadius: BorderRadius.all(
                               Radius.circular(50),
                             )),
                         child: Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(10.0),
 
                             // ignore: invalid_use_of_protected_member
                             child: Obx(() => tc.subscription.value.isNotEmpty
                                 ? bulpIconDisplay(tc.subscription[0])
-                                : Image(
+                                : const Image(
                                     image:
                                         AssetImage('assets/lightbulp_off.png'),
                                     height: 80,
@@ -106,8 +106,8 @@ class SensorPage extends StatelessWidget {
                       AppLocalizations.of(context)!.distance,
                       style: fontStyle(Weight.bold, 22, Colors.white, true),
                     ),
-                    SizedBox(height: 15),
-                    Container(
+                    const SizedBox(height: 15),
+                    SizedBox(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -116,7 +116,7 @@ class SensorPage extends StatelessWidget {
                                   Weight.bold, 16, Colors.white, true)),
                           Obx(() => Text(
                               tc.currentSensorValue <= 200
-                                  ? '${tc.currentSensorValue}' + " cm"
+                                  ? '${tc.currentSensorValue} cm'
                                   : AppLocalizations.of(context)!.moreThan200,
                               style: fontStyle(
                                   Weight.bold, 16, Colors.white, true))),
@@ -124,16 +124,16 @@ class SensorPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 30, horizontal: 15.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 30, horizontal: 15.0),
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Color.fromARGB(47, 0, 255, 255),
                             borderRadius: BorderRadius.all(
                               Radius.circular(30),
                             )),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -146,18 +146,19 @@ class SensorPage extends StatelessWidget {
                                       style: fontStyle(
                                           Weight.bold, 22, Colors.white, true),
                                     ),
-                                    Obx(() => Text('${_value.round()} cm',
+                                    Obx(() => Text(
+                                        '${distanceValue.round()} cm',
                                         style: fontStyle(Weight.bold, 21,
                                             Colors.white, true)))
                                   ],
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 Obx(() => SizedBox(
                                       height: 50,
                                       child: Slider(
-                                        value: _value.value.toDouble(),
+                                        value: distanceValue.value.toDouble(),
                                         onChanged: (value) => {
-                                          _value.value = value.toInt(),
+                                          distanceValue.value = value.toInt(),
                                         },
                                         onChangeEnd: (double value) async => {
                                           await controller.changeValue(
@@ -178,7 +179,7 @@ class SensorPage extends StatelessWidget {
                       AppLocalizations.of(context)!.lightIntensity,
                       style: fontStyle(Weight.bold, 22, Colors.white, true),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -204,29 +205,30 @@ class SensorPage extends StatelessWidget {
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)),
                             Obx(() => Text(
-                                "${(_lightIntesityValue.value * 100 / 4095).round()} %",
+                                "${(lightIntesityValue.value * 100 / 4095).round()} %",
                                 style: fontStyle(
                                     Weight.bold, 16, Colors.white, true)))
                           ],
                         ),
                       ],
                     ),
-                    SizedBox(height: 18),
+                    const SizedBox(height: 18),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Image(width: 30, image: AssetImage('assets/moon.png')),
-                        Container(
+                        const Image(
+                            width: 30, image: AssetImage('assets/moon.png')),
+                        SizedBox(
                           height: 230,
                           width: 230,
                           child: Obx(() => SleekCircularSlider(
                                 initialValue:
-                                    _lightIntesityValue.value.toDouble(),
+                                    lightIntesityValue.value.toDouble(),
                                 min: 0,
                                 max: 4095,
                                 onChange: (value) async {
-                                  _lightIntesityValue.value = value.toInt();
+                                  lightIntesityValue.value = value.toInt();
                                 },
                                 onChangeEnd: (value) async {
                                   await controller.changeValue(
@@ -240,13 +242,14 @@ class SensorPage extends StatelessWidget {
                                         progressBarWidth: 18),
                                     infoProperties: InfoProperties(
                                         mainLabelStyle:
-                                            TextStyle(fontSize: 0))),
+                                            const TextStyle(fontSize: 0))),
                               )),
                         ),
-                        Image(width: 30, image: AssetImage('assets/sun.png'))
+                        const Image(
+                            width: 30, image: AssetImage('assets/sun.png'))
                       ],
                     ),
-                    SizedBox(height: 20)
+                    const SizedBox(height: 20)
 
                     // (IconButton(
                     //     onPressed: () async => await c.changedDistance(),
@@ -277,7 +280,7 @@ Image bulpIconDisplay(int subscription) {
   );
 }
 
-Widget_lightIcon(height) {
+Widget lightIcon(height) {
   String icon = 'assets/lightbulp_on.png';
 
   return Image(

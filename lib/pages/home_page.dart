@@ -30,11 +30,12 @@ class HomePage extends StatelessWidget {
                         children: [
                           IconButton(
                               onPressed: () async => await _onFresh(controller),
-                              icon: Icon(Icons.refresh)),
+                              icon: const Icon(Icons.refresh)),
                           SingleChildScrollView(
                             child: Column(children: [
                               Padding(
-                                padding: EdgeInsets.symmetric(vertical: 50),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 50),
                                 child: Text(
                                   AppLocalizations.of(context)!.searchDevice,
                                   style: fontStyle(
@@ -61,7 +62,7 @@ class HomePage extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 50),
+                            padding: const EdgeInsets.symmetric(vertical: 50),
                             child: Text(
                               AppLocalizations.of(context)!.searchDevice,
                               style: fontStyle(
