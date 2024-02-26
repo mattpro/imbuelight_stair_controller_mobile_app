@@ -13,22 +13,22 @@ class ImbueList extends StatelessWidget {
   final double height;
   const ImbueList({
     super.key,
-    required List<ScanResult> this.imbue,
-    required BluetoothController this.bc,
-    required TypeOfDevice this.typeOfDevice,
-    required double this.height,
+    required this.imbue,
+    required this.bc,
+    required this.typeOfDevice,
+    required this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     // final FadeController fc = Get.put(FadeController());
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(45, 0, 255, 255),
+          color: const Color.fromARGB(45, 0, 255, 255),
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Color.fromARGB(45, 0, 255, 255),
               blurRadius: 4,
@@ -39,14 +39,14 @@ class ImbueList extends StatelessWidget {
         constraints:
             BoxConstraints(minHeight: height * 0.40, minWidth: double.infinity),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Column(children: [
             const SizedBox(height: 35),
-            imbue.length > 0
+            imbue.isNotEmpty
                 ? SingleChildScrollView(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         itemCount: imbue.length,
                         itemBuilder: (context, index) {
                           imbue.sort((a, b) => b.rssi.compareTo(a.rssi));
