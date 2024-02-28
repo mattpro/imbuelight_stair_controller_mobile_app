@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:imbuelight_stair_controller_mobile_app/cards/stairs_card.dart';
 import 'package:imbuelight_stair_controller_mobile_app/controllers/bluetooth_controller.dart';
 import 'package:imbuelight_stair_controller_mobile_app/controllers/timer_controller.dart';
 import 'package:imbuelight_stair_controller_mobile_app/enums/enums.dart';
 import 'package:imbuelight_stair_controller_mobile_app/methods/font_style.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ControllerPage extends StatelessWidget {
   ControllerPage({super.key});
@@ -48,17 +50,36 @@ class ControllerPage extends StatelessWidget {
                         style: fontStyle(Weight.bold, 23, Colors.white, true),
                       ),
                     )),
-                Obx(() => Text(
-                      controller.sub.toString(),
-                      style: fontStyle(Weight.bold, 21, Colors.white, true),
-                    )),
-                Obx(() => Text(tc.subscription.toString(),
-                    style: fontStyle(Weight.bold, 21, Colors.white, true))),
-                //     style: fontStyle(Weight.bold, 12, Colors.white, true))),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(AppLocalizations.of(context)!.numberOfStairs,
+                        style: fontStyle(Weight.bold, 20, Colors.white, true)),
+                    SizedBox(
+                      height: 80,
+                      width: 50,
+                      child: ListWheelScrollView.useDelegate(
+                        itemExtent: 30,
+                        childDelegate: ListWheelChildBuilderDelegate(
+                            childCount: 23,
+                            builder: (context, index) =>
+                                StairsCard(index: index + 1)),
+                        //     controller: FixedExtentScrollController(
+                        // initialItem: currentItem),
+                        physics: const FixedExtentScrollPhysics(),
+                        overAndUnderCenterOpacity: 0.5,
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 50),
                 ElevatedButton(
                     onPressed: () => controller.sendValueToSensor(),
-                    child: Text('Send',
-                        style: fontStyle(Weight.bold, 41, Colors.white, true)))
+                    style: const ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Color(0xFF131f6f))),
+                    child: Text('Save',
+                        style: fontStyle(Weight.bold, 25, Colors.white, true)))
               ]),
             )),
           );

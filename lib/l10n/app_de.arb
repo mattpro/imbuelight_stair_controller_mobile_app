@@ -17,5 +17,6 @@
 "lightIntensity" : "Lichtintensität",
 "setpoint" : "Sollwert: ",
 "setpointToTwoLines": "Požadovaná hodnota: ",
+"numberOfStairs" : "Number of stairs",
 "sizeSwitchButton" : "10.5"
 }

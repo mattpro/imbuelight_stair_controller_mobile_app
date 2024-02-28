@@ -17,5 +17,6 @@
 "lightIntensity": "Intensità luminosa",
 "setpoint": "Valore di riferimento: ",
 "setpointToTwoLines": "Valore\ndi riferimento: ",
+"numberOfStairs" : "Number of stairs",
 "sizeSwitchButton" : "14"
 }

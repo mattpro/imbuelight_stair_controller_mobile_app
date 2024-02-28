@@ -17,6 +17,8 @@
      "lightIntensity" : "Natężenie światła",
      "setpoint" : "Wartość zadana: ",
      "setpointToTwoLines": "Wartość zadana: ",
+     "numberOfStairs" : "Ilość schodów",
      "sizeSwitchButton" : "14"
+
 
 }

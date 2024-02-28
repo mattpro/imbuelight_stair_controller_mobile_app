@@ -17,5 +17,6 @@
 "lightIntensity": "Intensité lumineuse",
 "setpoint": "Valeur consigne : ",
 "setpointToTwoLines": "Valeur consigne : ",
+"numberOfStairs" : "Number of stairs",
 "sizeSwitchButton" : "14"
 }
